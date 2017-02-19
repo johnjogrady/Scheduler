@@ -1,19 +1,14 @@
-# hdip_web3_test_2017_SOLUTION
+# Scheduler
 
-## relates to the public SAMPLE test in this repo:
+## initially forked from this repo
 
 - https://github.com/dr-matt-smith/hdip_web3_test_SAMPLE_2017
 
-## suggested SOLUTION & sequence for lab test
+## Sunday 19th Feb 2017
 
-See the numbered sequence of README files for the suggested sequence of how to progressively refactor the non-MVC website to a full Twig+Silex, controllers-as-services web application
+set up Customer, Employee, EmployeeAbsence, EmployeeUnavailabilityTime, Office, Roster, RosterAssignedEmployee, ServiceUser,User classes and repository class for Customer
 
-Note - this is a slow and gentle illustration the steps
+Updated WebApplication class with additional routes to CustomerController
 
-You can (and in a test probably should) combine many of these small steps together, e.g.:
-
-1. Steps 1-6
-1. Steps 7-10
-1. Step 11
-1. Step 12
-1. Step 13
+customers/list template is working
+adapted CustomerRepository so that it reads from a SQL view which includes OfficeName
