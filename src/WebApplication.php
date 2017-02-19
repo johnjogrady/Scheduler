@@ -57,7 +57,18 @@ class WebApplication extends Application
         $this->get('/list', 'main.controller:listAction');
         $this->get('/show/{id}', 'main.controller:showAction');
         $this->get('/show', 'main.controller:showNoIdAction');
-        $this->get('/customers/list', 'customer.controller:listAction');    }
+
+        //==============================
+        // These are the customer controller routes and related Controller action methods
+        //==
+        $this->get('/customers', 'customer.controller:listAction');
+        $this->get('/customers/create/', 'customer.controller:createAction');
+        $this->get('/customers/success/', 'customer.controller:successAction');
+        $this->post('/customers/create/', 'customer.controller:updateCreateAction');
+        $this->get('/customers/show/{id}', 'customer.controller:showAction');
+        $this->get('/customers/update/{id}', 'customer.controller:updateAction');
+        $this->get('/customers/delete/{id}', 'customer.controller:deleteAction');
+    }
 
 
     public function handleErrorsAndExceptions ()

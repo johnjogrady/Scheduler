@@ -8,8 +8,11 @@
 
 namespace Itb\Controller;
 
+use Itb\Model\Customer;
 use Itb\Model\CustomerRepository;
 use Itb\Model\CustomerRepositoryView;
+use Itb\Model\LookUpReferenceRepositoryCounties;
+
 use Itb\WebApplication;
 
 class CustomerController
@@ -32,6 +35,12 @@ class CustomerController
         ];
         $templateName = 'Customers\list';
               return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+    }
+
+    public function successAction()
+    {
+        $templateName = 'Customers\success';
+        return $this->app['twig']->render($templateName . '.html.twig');
     }
 
     public function updateAction()
@@ -65,14 +74,27 @@ class CustomerController
     public function createAction()
     {
         // get reference to our repository
-        $customerRepository = new CustomerRepository();
-        $customers = $customerRepository->getAll();
+        $counties= new LookUpReferenceRepositoryCounties();
+
+        $counties = $counties->getAll();
         //to do update to get one by id
         $argsArray = [
-            'customer' => $customers
+            'counties' => $counties
         ];
-
         $templateName = 'Customers\create';
+        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+    }
+
+    public function updateCreateAction()
+    {
+        // get reference to our repository
+        $newCustomer= new Customer();
+        $newCustomer->setCustomerName(filter_input(INPUT_POST, 'customerName'));
+        $argsArray = [
+            'customer' => $newCustomer
+        ];
+     //   var_dump($argsArray);
+        $templateName = 'Customers\success';
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 

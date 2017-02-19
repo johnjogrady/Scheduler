@@ -2,7 +2,10 @@
     "require": {
         "twig/twig": "^2.1",
         "silex/silex": "^2.0",
-        "mattsmithdev/pdo-crud-for-free-repositories": "^0.8.0"
+        "mattsmithdev/pdo-crud-for-free-repositories": "^0.8.0",
+        "symfony/twig-bridge": "^3.2",
+        "symfony/config": "^3.2",
+        "symfony/translation": "^3.2"
     },
     "autoload": {
         "psr-4" : {

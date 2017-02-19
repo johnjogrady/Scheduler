@@ -1,0 +1,36 @@
+
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}Customers Creation  page{% endblock %}
+
+{% block main %}
+
+    <h1>Customer list</h1>
+    <form action="" method="post">
+    <fieldset>
+    <section class="contact info">
+    <legend>New Customer Registration</legend>
+    <label>Customer Name:</label>
+    <input type="text" name="customerName">
+    <label>Last Name:</label>
+    <input type="text" name="lastName">
+    <label>Address Line 1:</label>
+    <input type="text" name="addressLine1">
+    <label>Address Line 2:</label>
+    <input type="text" name="addressLine2">
+    <label>Address Line 3:</label>
+    <input type="text" name="addressLine3">
+    <label>County:</label>
+    <select name="CountyPostCode">
+    {% for county in counties %}
+        <option value="{{ county.refID}}">{{ county.refValue}} </option>
+    {% endfor %}
+    <input type="submit">
+        </select>
+        </section>
+        </fieldset>
+
+     </form>
+
+
+{% endblock %}

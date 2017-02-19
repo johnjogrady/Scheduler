@@ -11,13 +11,14 @@ use Mattsmithdev\PdoCrudRepo\DatabaseTableRepository;
  * class to store and serve Customer objects (bit like a memory-only database ...)
  * @package Itb
  */
-class CustomerRepository extends DatabaseTableRepository
+class LookUpReferenceRepositoryCounties extends DatabaseTableRepository
 {
     public function __construct()
     {
         $namespace = 'Itb\Model';
-        $classNameForDbRecords = 'Customer';
-        $tableName = 'customers';
+        $classNameForDbRecords = 'LookUpReference';
+        $tableName = 'counties';// counties is an SQL view filtered on the lookupreference table to only extract counties
+
         parent::__construct($namespace, $classNameForDbRecords, $tableName);
     }
 }
