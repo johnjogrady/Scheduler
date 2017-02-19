@@ -1,0 +1,24 @@
+{% extends '_base.html.twig' %}
+
+{% block pageTitle %}list page{% endblock %}
+
+{% block main %}
+
+    <h1>Customer list</h1>
+
+    <table>
+        {% for customer in customers %}
+            <tr>
+                <td>{{ customer.id }}</td>
+                <td>{{ customer.customerName}}</td>
+                <td>{{ customer.addressLine1}}</td>
+                <td>{{ customer.addressLine2}}</td>
+                <td>{{ customer.addressLine3}}</td>
+                <td>{{ customer.officeName}}</td>
+                <td>{{ customer.mobileTelephone}}</td>
+                <td>{{ customer.landlineTelephone}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
