@@ -5,10 +5,12 @@
 {% block main %}
 
     <h1>Customer list</h1>
+    <h4><a href="customers/create">Add New Customer</a></h4>
 
     <table>
         {% for customer in customers %}
             <tr>
+                <th></th>
                 <th>customerName</th>
                 <th>addressLine1</th>
                 <th>addressLine2</th>
@@ -20,6 +22,11 @@
             </tr>
 
             <tr>
+                <td>
+                    <a href="customers/show/{{customer.Id}}">View</a>
+                    <a href="customers/update/{{customer.Id}}">Edit</a>
+                    <a href="customers/delete/{{customer.Id}}">Delete</a>
+                    </td>
                 <td>{{ customer.customerName}}</td>
                 <td>{{ customer.addressLine1}}</td>
                 <td>{{ customer.addressLine2}}</td>

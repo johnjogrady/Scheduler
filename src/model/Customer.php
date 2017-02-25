@@ -13,6 +13,8 @@ class Customer
 
     private $id;
 
+
+
     /**
      * @return mixed
      */
@@ -22,7 +24,13 @@ class Customer
     }
     private $customerName;
 
-
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * @return mixed
@@ -91,6 +99,22 @@ class Customer
         $this->addressLine3 = $addressLine3;
     }
     private $countyPostcode;
+
+    /**
+     * @return mixed
+     */
+    public function getCountyPostcode()
+    {
+        return $this->countyPostcode;
+    }
+
+    /**
+     * @param mixed $countyPostcode
+     */
+    public function setCountyPostcode($countyPostcode)
+    {
+        $this->countyPostcode = $countyPostcode;
+    }
 
     /**
      * @return mixed
@@ -165,6 +189,21 @@ class Customer
         $this->mainContact = $mainContact;
     }
 
+    private $managingOffice;
 
+    /**
+     * @return mixed
+     */
+    public function getManagingOffice()
+    {
+        return $this->managingOffice;
+    }
 
+    /**
+     * @param mixed $managingOffice
+     */
+    public function setManagingOffice($managingOffice)
+    {
+        $this->managingOffice = $managingOffice;
+    }
 }

@@ -4,14 +4,14 @@
 
 namespace Itb\Model;
 
-use Mattsmithdev\PdoCrudRepo\DatabaseTableRepository;
+use Mattsmithdev\PdoCrudRepo\ReadOnlyDatabaseTableRepository;
 
 /**
  * Class CustomerRepository
  * class to store and serve Customer objects (bit like a memory-only database ...)
  * @package Itb
  */
-class LookUpReferenceRepositoryCounties extends DatabaseTableRepository
+class LookUpReferenceRepositoryCounties extends ReadOnlyDatabaseTableRepository
 {
     public function __construct()
     {

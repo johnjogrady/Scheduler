@@ -12,3 +12,8 @@ Updated WebApplication class with additional routes to CustomerController
 
 customers/list template is working
 adapted CustomerRepository so that it reads from a SQL view which includes OfficeName
+
+## Sunday 19th Feb 2017
+
+added create and updatecreate methods to customer which routes to success
+added post method. Added create template form with post method/

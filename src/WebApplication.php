@@ -64,9 +64,10 @@ class WebApplication extends Application
         $this->get('/customers', 'customer.controller:listAction');
         $this->get('/customers/create/', 'customer.controller:createAction');
         $this->get('/customers/success/', 'customer.controller:successAction');
-        $this->post('/customers/create/', 'customer.controller:updateCreateAction');
+        $this->post('/customers/create/', 'customer.controller:processCreateAction');
         $this->get('/customers/show/{id}', 'customer.controller:showAction');
         $this->get('/customers/update/{id}', 'customer.controller:updateAction');
+        $this->post('/customers/update/{id}', 'customer.controller:processUpdateAction');
         $this->get('/customers/delete/{id}', 'customer.controller:deleteAction');
     }
 

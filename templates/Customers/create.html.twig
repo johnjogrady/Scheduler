@@ -6,14 +6,14 @@
 {% block main %}
 
     <h1>Customer list</h1>
+    <div class="column_container">
     <form action="" method="post">
     <fieldset>
     <section class="contact info">
     <legend>New Customer Registration</legend>
     <label>Customer Name:</label>
     <input type="text" name="customerName">
-    <label>Last Name:</label>
-    <input type="text" name="lastName">
+
     <label>Address Line 1:</label>
     <input type="text" name="addressLine1">
     <label>Address Line 2:</label>
@@ -21,16 +21,34 @@
     <label>Address Line 3:</label>
     <input type="text" name="addressLine3">
     <label>County:</label>
-    <select name="CountyPostCode">
+    <select name="countyPostcode">
     {% for county in counties %}
         <option value="{{ county.refID}}">{{ county.refValue}} </option>
     {% endfor %}
+    </select>
+        <br>
+    <label>Eircode:</label>
+    <input type="text" name="eirCode">
+    <label>Landline Telephone:</label>
+    <input type="text" name="landlineTelephone">
+    <label>Mobile Telephone:</label>
+    <input type="text" name="mobileTelephone">
+    <label>Main Contact:</label>
+    <input type="text" name="mainContact">
+
+    <label>Managing Office:</label>
+    <select name="managingOffice">
+    {% for office in offices %}
+        <option value="{{ office.id}}">{{ office.officeName}} </option>
+    {% endfor %}
+    </select>
+        <br>
     <input type="submit">
-        </select>
+
         </section>
         </fieldset>
 
      </form>
-
+    </div>
 
 {% endblock %}

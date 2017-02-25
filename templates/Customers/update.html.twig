@@ -1,10 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<p>this is the customer update page</p>
-</body>
-</html>
+
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}Edit Customer Details{% endblock %}
+{% block main %}
+
+    <h1>Edit Customer Details</h1>
+    <div class="column_container">
+        <form action="" method="post">
+            <table>
+                     <input type="hidden" name="Id" value="{{customer.Id}}" >
+
+               <tr>
+                   <td>
+                     <label>Customer Name:</label>
+                   </td>
+                   <td>
+                    <input type="text" name="customerName" value="{{customer.customerName}}">
+                   </td>
+                </tr>
+               <tr>
+                   <td>
+                    <label>Address Line 1:</label>
+               </td>
+               <td>
+                    <input type="text" name="addressLine1" value="{{ customer.addressLine1}}">
+               </td>
+               </tr>
+                <tr>
+                    <td>
+                        <label>Address Line 2:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="addressLine2" value="{{ customer.addressLine2}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Address Line 3:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="addressLine3" value="{{ customer.addressLine3}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>County:</label>
+                    </td>
+                    <td>
+
+                        <select name="countyPostcode">
+                            {% for county in counties %}
+                                <option value="{{ county.refID}}"
+                                        {% if (county.refID== customer.countyPostcode) %}
+                                            {{ 'selected'}}
+                                        {% endif %}>
+                                    {{ county.refValue}}</option>
+                            {% endfor %}
+                        </select>
+                        <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Eircode:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="eirCode" value="{{ customer.eirCode}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                <label>Landline Telephone:</label>
+                </td>
+                <td>
+                    <input type="text" name="landlineTelephone" value="{{ customer.landlineTelephone}}">
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                       <label>Mobile Telephone:</label>
+                    </td>
+                    <td>
+                         <input type="text" name="mobileTelephone" value="{{ customer.mobileTelephone}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Main Contact:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="mainContact" value="{{ customer.mainContact}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Managing Office:</label>
+                    </td>
+                    <td>
+                    <select name="managingOffice" >
+                            {% for office in offices %}
+                                <option value="{{ office.Id}}"
+                                {% if (office.Id== customer.managingOffice) %}
+                                         {{ 'selected'}}
+                                         {% endif %}>
+                                    {{ office.officeName}}</option>
+                         {% endfor %}
+                    </select>
+
+                    <br>
+                        <tr>
+                         <td></td>
+                            <td><input type="submit"></td>
+                        </tr>
+            </table>
+        </form>
+    </div>
+
+{% endblock %}

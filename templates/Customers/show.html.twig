@@ -1,10 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<p>this is the page to view a single customer</p>
-</body>
-</html>
+
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}Edit Customer Details{% endblock %}
+{% block main %}
+    <p>Customer Details</p>
+
+    <table>
+
+
+        <input type="hidden" name="Id" value="{{customer.Id}}" >
+        <tr>
+        <td>Customer Name:</td>
+        <td>{{customer.customerName}}</td>
+    </tr>
+    <tr>
+        <td>Address Line 1:</td>
+        <td>{{customer.addressLine1}}</td>
+    </tr>
+    <tr>
+        <td>Address Line 2:</td>
+        <td>{{customer.addressLine2}}</td>
+    </tr>
+    <tr>
+        <td>Address Line 3:</td>
+        <td>{{customer.addressLine3}}</td>
+    </tr>
+    <tr>
+        <td>County/Postcode:</td>
+        <td>{{customer.countyPostcodeName}}</td>
+    </tr>
+    <tr>
+        <td>Eircode:</td>
+        <td>{{ customer.eirCode}}</td>
+    </tr>
+    <tr>
+       <td>Landline Telephone:</td>
+        <td>{{ customer.landlineTelephone}}</td>
+    </tr>
+    <tr>
+        <td>Mobile Telephone:</td>
+        <td>{{ customer.mobileTelephone}}</td>
+    </tr>
+    <tr>
+        <td>Main Contact:</td>
+        <td>{{ customer.mainContact}}</td>
+    </tr>
+    <tr>
+        <td>Managing Office:</td>
+        <td>{{ customer.officeName }}</td>
+    </tr>
+    </table>
+
+    <a href="../update/{{customer.Id}}">Edit Customer</a>
+    <a href="/../delete/{{customer.Id}}">Delete Customer</a>
+    </br>
+    <a href="/../customers">Return to customer list</a>
+
+{% endblock %}
