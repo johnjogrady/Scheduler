@@ -15,5 +15,12 @@ adapted CustomerRepository so that it reads from a SQL view which includes Offic
 
 ## Sunday 19th Feb 2017
 
-added create and updatecreate methods to customer which routes to success
+added create and processCreate methods to customer which routes to success to Customer Controller
 added post method. Added create template form with post method/
+
+## Saturday 25th Feb 2017
+
+Added update and processUpdate methods to Customer Controller
+Resolved issues where dropdown menus were not retrieving database values and setting lookup to stored value
+Updated public\index to link to available entity
+Added show [Customer] entity and included basic navigation between pages
