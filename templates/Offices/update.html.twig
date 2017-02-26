@@ -1,0 +1,95 @@
+
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}Edit Office Details{% endblock %}
+{% block main %}
+
+    <h1>Edit office Details</h1>
+    <div class="column_container">
+        <form action="" method="post">
+            <table>
+                     <input type="hidden" name="Id" value="{{office.Id}}" >
+
+               <tr>
+                   <td>
+                     <label>office Name:</label>
+                   </td>
+                   <td>
+                    <input type="text" name="officeName" value="{{office.managingOffice}}">
+                   </td>
+                </tr>
+               <tr>
+                   <td>
+                    <label>Address Line 1:</label>
+               </td>
+               <td>
+                    <input type="text" name="addressLine1" value="{{ office.addressLine1}}">
+               </td>
+               </tr>
+                <tr>
+                    <td>
+                        <label>Address Line 2:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="addressLine2" value="{{ office.addressLine2}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Address Line 3:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="addressLine3" value="{{ office.addressLine3}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>County:</label>
+                    </td>
+                    <td>
+
+                        <select name="countyPostcode">
+                            {% for county in counties %}
+                                <option value="{{ county.refID}}"
+                                        {% if (county.refID== office.countyPostcode) %}
+                                            {{ 'selected'}}
+                                        {% endif %}>
+                                    {{ county.refValue}}</option>
+                            {% endfor %}
+                        </select>
+                        <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Eircode:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="eirCode" value="{{ office.eirCode}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                <label>Landline Telephone:</label>
+                </td>
+                <td>
+                    <input type="text" name="landlineTelephone" value="{{ office.landlineTelephone}}">
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                       <label>Mobile Telephone:</label>
+                    </td>
+                    <td>
+                         <input type="text" name="mobileTelephone" value="{{ office.mobileTelephone}}">
+                    </td>
+                </tr>
+                        <tr>
+                         <td></td>
+                            <td><input type="submit"></td>
+                        </tr>
+            </table>
+        </form>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,149 @@
+
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}Edit employee Details{% endblock %}
+{% block main %}
+
+    <h1>Edit employee Details</h1>
+    <div class="column_container">
+        <form action="" method="post">
+            <table>
+                     <input type="hidden" name="Id" value="{{employee.id}}" >
+
+               <tr>
+                   <td>
+                     <label>First Name:</label>
+                   </td>
+                   <td>
+                    <input type="text" name="firstName" value="{{employee.firstName}}">
+                   </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Last Name:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="lastName" value="{{employee.lastName}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Staff Number:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="staffNumber" value="{{employee.staffNumber}}">
+                    </td>
+                </tr>
+               <tr>
+                   <td>
+                    <label>Address Line 1:</label>
+               </td>
+               <td>
+                    <input type="text" name="addressLine1" value="{{ employee.addressLine1}}">
+               </td>
+               </tr>
+                <tr>
+                    <td>
+                        <label>Address Line 2:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="addressLine2" value="{{ employee.addressLine2}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Address Line 3:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="addressLine3" value="{{ employee.addressLine3}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>County:</label>
+                    </td>
+                    <td>
+
+                        <select name="countyPostcode">
+                            {% for county in counties %}
+                                <option value="{{ county.refID}}"
+                                        {% if (county.refID== employee.countyPostcode) %}
+                                            {{ 'selected'}}
+                                        {% endif %}>
+                                    {{ county.refValue}}</option>
+                            {% endfor %}
+                        </select>
+                        <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Eircode:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="eirCode" value="{{ employee.eirCode}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                <label>Landline Telephone:</label>
+                </td>
+                <td>
+                    <input type="text" name="landlineTelephone" value="{{ employee.landlineTelephone}}">
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                       <label>Mobile Telephone:</label>
+                    </td>
+                    <td>
+                         <input type="text" name="mobileTelephone" value="{{ employee.mobileTelephone}}">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>Managing Office:</label>
+                    </td>
+                    <td>
+                    <select name="managingOffice" >
+                            {% for office in offices %}
+                                <option value="{{ office.Id}}"
+                                {% if (office.Id== employee.managingOffice) %}
+                                         {{ 'selected'}}
+                                         {% endif %}>
+                                    {{ office.officeName}}</option>
+                         {% endfor %}
+                    </select>
+
+                    <br>
+                <tr>
+                    <td>
+                        <label>StartDate:</label>
+                    </td>
+                    <td>
+                        <input type="date" name="startDate" value="{{ employee.startDate}}">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>Is Active:</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="isActive" value="{{ employee.isActive}}">
+                    </td>
+                </tr>
+                <tr>
+                <tr>
+                <tr>
+                        <tr>
+
+                         <td></td>
+                            <td><input type="submit"></td>
+                        </tr>
+            </table>
+        </form>
+    </div>
+
+{% endblock %}

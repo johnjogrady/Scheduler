@@ -1,16 +1,32 @@
 {% extends '/_base.html.twig' %}
-{% block pageTitle %}Customer Creation  page{% endblock %}
+{% block pageTitle %}employees Creation  page{% endblock %}
 {% block main %}
-    <h1>Add a New Customer</h1>
+    <h1>Add a New Employee</h1>
     <div class="column_container">
         <form action="" method="post">
             <table>
                 <tr>
                     <td>
-                        <label>Customer Name:</label>
+                        <label>First Name:</label>
                     </td>
                     <td>
-                        <input type="text" name="customerName">
+                        <input type="text" name="firstName">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Second Name:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="secondName">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Staff Number:</label>
+                    </td>
+                    <td>
+                        <input type="text" name="staffNumber">
                     </td>
                 </tr>
                 <tr>
@@ -89,9 +105,9 @@
                     <td>
                         <select name="managingOffice">
 
-                            {% for office in offices %}
-                                <option value="{{ office.id}}">{{ office.officeName}} </option>
-                            {% endfor %}
+                        {% for office in offices %}
+                            <option value="{{ office.id}}">{{ office.officeName}} </option>
+                        {% endfor %}
                         </select>
                     </td>
                 </tr>

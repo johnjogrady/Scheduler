@@ -1,0 +1,42 @@
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}offices list page{% endblock %}
+
+{% block main %}
+
+    <h1>office list</h1>
+    <h4><a href="offices/create">Add New office</a></h4>
+
+    <table>
+        {% for office in offices %}
+            <tr>
+                <th></th>
+                <th>officeName</th>
+                <th>addressLine1</th>
+                <th>addressLine2</th>
+                <th>addressLine3</th>
+                <th>county/ postcode</th>
+                <th>officeName</th>
+                <th>mobileTelephone</th>
+                <th>landlineTelephone</th>
+            </tr>
+
+            <tr>
+                <td>
+                    <a href="offices/show/{{office.Id}}">View</a>
+                    <a href="offices/update/{{office.Id}}">Edit</a>
+                    <a href="offices/delete/{{office.Id}}">Delete</a>
+                    </td>
+                <td>{{ office.officeName}}</td>
+                <td>{{ office.addressLine1}}</td>
+                <td>{{ office.addressLine2}}</td>
+                <td>{{ office.addressLine3}}</td>
+                <td>{{ office.countyPostcodeName}}</td>
+                <td>{{ office.officeName}}</td>
+                <td>{{ office.mobileTelephone}}</td>
+                <td>{{ office.landlineTelephone}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

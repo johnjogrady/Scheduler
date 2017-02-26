@@ -1,0 +1,49 @@
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}Employees list page{% endblock %}
+
+{% block main %}
+
+    <h1>Employeelist</h1>
+    <h4><a href="employees/create">Add New Employee</a></h4>
+
+    <table>
+        {% for employee in employees %}
+            <tr>
+                <th></th>
+                <th>Staff Number</th>
+
+                <th>firstName</th>
+                <th>lastName</th>
+                <th>addressLine1</th>
+                <th>addressLine2</th>
+                <th>addressLine3</th>
+                <th>County/Postcode</th>
+                <th>officeName</th>
+                <th>mobileTelephone</th>
+                <th>landlineTelephone</th>
+            </tr>
+
+            <tr>
+
+                <td>
+                    <a href="employees/show/{{employee.id}}">View</a>
+                    <a href="employees/update/{{employee.id}}">Edit</a>
+                    <a href="employees/delete/{{employee.id}}">Delete</a>
+                    </td>
+
+                <td>{{ employee.staffNumber}}</td>
+                <td>{{ employee.firstName}}</td>
+                <td>{{ employee.lastName}}</td>
+                 <td>{{ employee.addressLine1}}</td>
+                <td>{{ employee.addressLine2}}</td>
+                <td>{{ employee.addressLine3}}</td>
+                <td>{{ employee.countyPostcodeName}}</td>
+                <td>{{ employee.officeName}}</td>
+                <td>{{ employee.mobileTelephone}}</td>
+                <td>{{ employee.landlineTelephone}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

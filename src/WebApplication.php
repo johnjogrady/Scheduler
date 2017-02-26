@@ -3,6 +3,9 @@ namespace Itb;
 
 
 use Itb\Controller\CustomerController;
+use Itb\Controller\EmployeeController;
+use Itb\Controller\OfficeController;
+use Itb\Controller\ServiceUserController;
 use Silex\Application;
 use Itb\Controller\MainController;
 use Symfony\Component\Debug\ErrorHandler;
@@ -48,6 +51,9 @@ class WebApplication extends Application
         //==============================
         $this['main.controller'] = function() { return new MainController($this);   };
         $this['customer.controller'] = function() { return new CustomerController($this);   };
+        $this['employee.controller'] = function() { return new EmployeeController($this);   };
+        $this['office.controller'] = function() { return new OfficeController($this);   };
+        $this['serviceuser.controller'] = function() { return new ServiceUserController($this);   };
         //==============================
         // now define the routes
         //==============================
@@ -69,10 +75,49 @@ class WebApplication extends Application
         $this->get('/customers/update/{id}', 'customer.controller:updateAction');
         $this->post('/customers/update/{id}', 'customer.controller:processUpdateAction');
         $this->get('/customers/delete/{id}', 'customer.controller:deleteAction');
-    }
 
 
-    public function handleErrorsAndExceptions ()
+    //==============================
+    // These are the employee controller routes and related Controller action methods
+    //==
+$this->get('/employees', 'employee.controller:listAction');
+$this->get('/employees/create/', 'employee.controller:createAction');
+$this->get('/employees/success/', 'employee.controller:successAction');
+$this->post('/employees/create/', 'employee.controller:processCreateAction');
+$this->get('/employees/show/{id}', 'employee.controller:showAction');
+$this->get('/employees/update/{id}', 'employee.controller:updateAction');
+$this->post('/employees/update/{id}', 'employee.controller:processUpdateAction');
+$this->get('/employees/delete/{id}', 'employee.controller:deleteAction');
+
+
+    //==============================
+    // These are the office controller routes and related Controller action methods
+    //==
+$this->get('/offices', 'office.controller:listAction');
+$this->get('/offices/create/', 'office.controller:createAction');
+$this->get('/offices/success/', 'office.controller:successAction');
+$this->post('/offices/create/', 'office.controller:processCreateAction');
+$this->get('/offices/show/{id}', 'office.controller:showAction');
+$this->get('/offices/update/{id}', 'office.controller:updateAction');
+$this->post('/offices/update/{id}', 'office.controller:processUpdateAction');
+$this->get('/offices/delete/{id}', 'office.controller:deleteAction');
+
+
+
+    //==============================
+    // These are the serviceuser controller routes and related Controller action methods
+    //==
+$this->get('/serviceusers', 'serviceuser.controller:listAction');
+$this->get('/serviceusers/create/', 'serviceuser.controller:createAction');
+$this->get('/serviceusers/success/', 'serviceuser.controller:successAction');
+$this->post('/serviceusers/create/', 'serviceuser.controller:processCreateAction');
+$this->get('/serviceusers/show/{id}', 'serviceuser.controller:showAction');
+$this->get('/serviceusers/update/{id}', 'serviceuser.controller:updateAction');
+$this->post('/serviceusers/update/{id}', 'serviceuser.controller:processUpdateAction');
+$this->get('/serviceusers/delete/{id}', 'serviceuser.controller:deleteAction');
+}
+
+public function handleErrorsAndExceptions ()
     {
         ErrorHandler::register();
 

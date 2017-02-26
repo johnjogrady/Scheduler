@@ -1,0 +1,47 @@
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}serviceusers list page{% endblock %}
+
+{% block main %}
+
+    <h1>serviceuserlist</h1>
+    <h4><a href="serviceusers/create">Add New serviceuser</a></h4>
+
+    <table>
+        {% for serviceuser in serviceUsers %}
+            <tr>
+                <th></th>
+
+                <th>firstName</th>
+                <th>lastName</th>
+                <th>addressLine1</th>
+                <th>addressLine2</th>
+                <th>addressLine3</th>
+                <th>County/Postcode</th>
+                <th>officeName</th>
+                <th>mobileTelephone</th>
+                <th>landlineTelephone</th>
+            </tr>
+
+            <tr>
+
+                <td>
+                    <a href="serviceusers/show/{{serviceuser.id}}">View</a>
+                    <a href="serviceusers/update/{{serviceuser.id}}">Edit</a>
+                    <a href="serviceusers/delete/{{serviceuser.id}}">Delete</a>
+                    </td>
+
+                <td>{{ serviceuser.firstName}}</td>
+                <td>{{ serviceuser.lastName}}</td>
+                 <td>{{ serviceuser.addressLine1}}</td>
+                <td>{{ serviceuser.addressLine2}}</td>
+                <td>{{ serviceuser.addressLine3}}</td>
+                <td>{{ serviceuser.countyPostcodeName}}</td>
+                <td>{{ serviceuser.officeName}}</td>
+                <td>{{ serviceuser.mobileTelephone}}</td>
+                <td>{{ serviceuser.landlineTelephone}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

@@ -4,14 +4,15 @@
     <meta charset="utf-8">
     <title>MGW - {% block pageTitle %}{% endblock %}</title>
     <style>
-        @import '../public/css/style.css';
+        @import 'css/style.css';
+        @import 'css/aside.css';
 
-        @import "../public/css/root.css";
-        @import "../public/css/basic.css";
-        @import "../public/css/header_footer.css";
-        @import "../public/css/layout.css";
-        @import "../public/css/nav.css";
-        @import "../public/css/aside.css";
+        @import "css/root.css";
+        @import "css/basic.css";
+        @import "css/header_footer.css";
+        @import "css/layout.css";
+        @import "css/nav.css";
+        @import "css/aside.css";
 
     </style>
 </head>
@@ -19,7 +20,10 @@
 <body>
 
 <a href="/">home</a>
-<a href="/customers">customers</a>
+<a href="/customers">Customers</a>
+<a href="/employees">Employees</a>
+<a href="/offices">Offices</a>#
+<a href="/serviceusers">ServiceUsers</a>
 <hr>
 
 {% block main %}

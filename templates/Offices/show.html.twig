@@ -1,0 +1,52 @@
+
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}Edit office Details{% endblock %}
+{% block main %}
+    <p>office Details</p>
+
+    <table>
+
+
+        <input type="hidden" name="Id" value="{{office.Id}}" >
+        <tr>
+        <td>office Name:</td>
+        <td>{{office.officeName}}</td>
+    </tr>
+    <tr>
+        <td>Address Line 1:</td>
+        <td>{{office.addressLine1}}</td>
+    </tr>
+    <tr>
+        <td>Address Line 2:</td>
+        <td>{{office.addressLine2}}</td>
+    </tr>
+    <tr>
+        <td>Address Line 3:</td>
+        <td>{{office.addressLine3}}</td>
+    </tr>
+    <tr>
+        <td>County/Postcode:</td>
+        <td>{{office.countyPostcodeName}}</td>
+    </tr>
+    <tr>
+        <td>Eircode:</td>
+        <td>{{ office.eirCode}}</td>
+    </tr>
+    <tr>
+       <td>Landline Telephone:</td>
+        <td>{{ office.landlineTelephone}}</td>
+    </tr>
+    <tr>
+        <td>Mobile Telephone:</td>
+        <td>{{ office.mobileTelephone}}</td>
+    </tr>
+
+    </table>
+
+    <a href="../update/{{office.Id}}">Edit office</a>
+    <a href="/../delete/{{office.Id}}">Delete office</a>
+    </br>
+    <a href="/../offices">Return to office list</a>
+
+{% endblock %}

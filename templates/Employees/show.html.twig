@@ -1,0 +1,67 @@
+
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}Edit employee Details{% endblock %}
+{% block main %}
+    <p>employee Details</p>
+
+    <table>
+
+
+        <input type="hidden" name="Id" value="{{employee.Id}}" >
+        <tr>
+            <td>Staff Number:</td>
+            <td>{{employee.staffNumber}}</td>
+        </tr>
+        <tr>
+        <td>Employee Name:</td>
+        <td>{{employee.firstName}}</td>
+    </tr>
+    <tr>
+        <td>Address Line 1:</td>
+        <td>{{employee.addressLine1}}</td>
+    </tr>
+    <tr>
+        <td>Address Line 2:</td>
+        <td>{{employee.addressLine2}}</td>
+    </tr>
+    <tr>
+        <td>Address Line 3:</td>
+        <td>{{employee.addressLine3}}</td>
+    </tr>
+    <tr>
+        <td>County/Postcode:</td>
+        <td>{{employee.countyPostcodeName}}</td>
+    </tr>
+    <tr>
+        <td>Eircode:</td>
+        <td>{{ employee.eirCode}}</td>
+    </tr>
+    <tr>
+       <td>Landline Telephone:</td>
+        <td>{{ employee.landlineTelephone}}</td>
+    </tr>
+    <tr>
+        <td>Mobile Telephone:</td>
+        <td>{{ employee.mobileTelephone}}</td>
+    </tr>
+    <tr>
+        <td>Managing Office:</td>
+        <td>{{ employee.officeName }}</td>
+    </tr>
+        <tr>
+            <td>Start Date:</td>
+            <td>{{ employee.startDate}}</td>
+        </tr>
+        <tr>
+            <td>Active Employee?</td>
+            <td>{{ employee.isActive}}</td>
+        </tr>
+    </table>
+
+    <a href="../update/{{employee.Id}}">Edit employee</a>
+    <a href="/../delete/{{employee.Id}}">Delete employee</a>
+    </br>
+    <a href="/../employees">Return to employee list</a>
+
+{% endblock %}

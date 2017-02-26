@@ -14,6 +14,14 @@ class Employee
     private $id;
 
     /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @param mixed $id s
      */
     public function setId($id)
@@ -55,6 +63,25 @@ class Employee
     {
         $this->lastName = $lastName;
     }
+
+    private $staffNumber;
+
+    /**
+     * @return mixed
+     */
+    public function getStaffNumber()
+    {
+        return $this->staffNumber;
+    }
+
+    /**
+     * @param mixed $staffNumber
+     */
+    public function setStaffNumber($staffNumber)
+    {
+        $this->staffNumber = $staffNumber;
+    }
+
     private $addressLine1;
 
     /**

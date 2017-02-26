@@ -1,0 +1,64 @@
+
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}Edit Service User Details{% endblock %}
+{% block main %}
+    <p>Service User Details</p>
+
+    <table>
+
+
+        <input type="hidden" name="Id" value="{{serviceUser.Id}}" >
+        
+        <tr>
+        <td>serviceUser Name:</td>
+        <td>{{serviceUser.firstName}}</td>
+    </tr>
+    <tr>
+        <td>Address Line 1:</td>
+        <td>{{serviceUser.addressLine1}}</td>
+    </tr>
+    <tr>
+        <td>Address Line 2:</td>
+        <td>{{serviceUser.addressLine2}}</td>
+    </tr>
+    <tr>
+        <td>Address Line 3:</td>
+        <td>{{serviceUser.addressLine3}}</td>
+    </tr>
+    <tr>
+        <td>County/Postcode:</td>
+        <td>{{serviceUser.countyPostcodeName}}</td>
+    </tr>
+    <tr>
+        <td>Eircode:</td>
+        <td>{{ serviceUser.eirCode}}</td>
+    </tr>
+    <tr>
+       <td>Landline Telephone:</td>
+        <td>{{ serviceUser.landlineTelephone}}</td>
+    </tr>
+    <tr>
+        <td>Mobile Telephone:</td>
+        <td>{{ serviceUser.mobileTelephone}}</td>
+    </tr>
+    <tr>
+        <td>Managing Office:</td>
+        <td>{{ serviceUser.officeName }}</td>
+    </tr>
+        <tr>
+            <td>Start Date:</td>
+            <td>{{ serviceUser.startDate}}</td>
+        </tr>
+        <tr>
+            <td>Active serviceUser?</td>
+            <td>{{ serviceUser.isActive}}</td>
+        </tr>
+    </table>
+
+    <a href="../update/{{serviceUser.Id}}">Edit serviceUser</a>
+    <a href="/../delete/{{serviceUser.Id}}">Delete serviceUser</a>
+    </br>
+    <a href="/../serviceUsers">Return to serviceUser list</a>
+
+{% endblock %}
