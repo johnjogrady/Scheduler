@@ -24,3 +24,9 @@ Added update and processUpdate methods to Customer Controller
 Resolved issues where dropdown menus were not retrieving database values and setting lookup to stored value
 Updated public\index to link to available entity
 Added show [Customer] entity and included basic navigation between pages
+
+## Sunday 26th Feb 2017
+
+Added CRUD functionality Employee, ServiceUser and Office Controllers
+Created routes for the CRUD functions for these entities
+Created list, update, create, delete and show templates for each of these entities
