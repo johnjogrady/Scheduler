@@ -12,6 +12,14 @@ namespace Itb\model;
 class Roster
 {
     private $id;
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
     /**
      * @return mixed
      */
@@ -35,23 +43,6 @@ class Roster
     public function setServiceUserId($serviceUserId)
     {
         $this->serviceUserId = $serviceUserId;
-    }
-    private $dayOfWeek;
-
-    /**
-     * @return mixed
-     */
-    public function getDayOfWeek()
-    {
-        return $this->dayOfWeek;
-    }
-
-    /**
-     * @param mixed $dayOfWeek
-     */
-    public function setDayOfWeek($dayOfWeek)
-    {
-        $this->dayOfWeek = $dayOfWeek;
     }
     private $rosterStartTime;
 
@@ -122,6 +113,23 @@ class Roster
         $this->numberResourcesNeeded = $numberResourcesNeeded;
     }
 
+    private $customerId;
+
+    /**
+     * @return mixed
+     */
+    public function getcustomerId()
+    {
+        return $this->customerId;
+    }
+
+    /**
+     * @param mixed $numberResourcesNeeded
+     */
+    public function setcustomerId($customerId)
+    {
+        $this->customerId = $customerId;
+    }
 
 
 }

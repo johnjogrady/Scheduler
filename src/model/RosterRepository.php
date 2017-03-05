@@ -1,14 +1,21 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: john.ogrady
+ * Date: 25/02/2017
+ * Time: 20:15
+ */
 
-namespace Itb\Model;
-
+namespace Itb\model;
 use Mattsmithdev\PdoCrudRepo\DatabaseTableRepository;
 
-/**
- * Class CustomerRepository
- * class to store and serve Customer objects (bit like a memory-only database ...)
- * @package Itb
- */
+
+
+    /**
+     * Class EmployeeRepository
+     * class to store and serve Employee objects (bit like a memory-only database ...)
+     * @package Itb
+     */
 class RosterRepository extends DatabaseTableRepository
 {
     public function __construct()
@@ -18,4 +25,5 @@ class RosterRepository extends DatabaseTableRepository
         $tableName = 'rosters';
         parent::__construct($namespace, $classNameForDbRecords, $tableName);
     }
+
 }

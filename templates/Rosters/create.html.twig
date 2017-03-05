@@ -1,0 +1,86 @@
+{% extends '/_base.html.twig' %}
+{% block pageTitle %}Roster Creation  page{% endblock %}
+{% block main %}
+    <h1>Add a New Roster</h1>
+    <div class="column_container">
+        <form action="" method="post">
+            <table>
+                <tr>
+
+                    <td>
+                        <label>Service User</label>
+                    </td>
+                    <td>
+
+                        <select name="serviceUser">
+                            {% for serviceuser in serviceUsers%}
+                                <option value="{{ serviceuser.Id}}">
+                                    {{ serviceuser.firstName}} {{serviceuser.lastName}} [{{ serviceuser.Id }}]</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+
+
+
+                <tr>
+                    <td>
+                        <label>Start Time</label>
+                    </td>
+                    <td>
+                        <input type="datetime" name="startTime">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>End Time</label>
+                    </td>
+                    <td>
+                        <input type="datetime" name="endTime">
+                    </td>
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <label>Roster Status</label>
+                    </td>
+                    <td>
+
+                        <select name="rosterStatus">
+                            {% for rosterStatus in rosterStatusList%}
+                                <option value="{{ rosterStatus.refID}}">
+                                    {{ rosterStatus.refValue}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <label>Required resources</label>
+                    </td>
+                    <td>
+                        <input type="text" name="numResources" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Customer:</label>
+                    </td>
+                    <td>
+                        <select name="customer">
+
+                            {% for customer in customers%}
+                                <option value="{{ customer.id}}">{{ customer.customerName}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <td><input type="submit"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+{% endblock %}

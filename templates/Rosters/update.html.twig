@@ -1,0 +1,105 @@
+
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}Edit Roster Details{% endblock %}
+{% block main %}
+
+    <h1>Edit Roster Details</h1>
+    <div class="column_container">
+        <form action="" method="post">
+            <table>
+                     <input type="hidden" name="Id" value="{{roster.id}}" >
+
+               <tr>
+
+                   <td>
+                       <label>Service User</label>
+                   </td>
+                   <td>
+
+                       <select name="serviceUser">
+                           {% for serviceuser in serviceUsers%}
+                               <option value="{{ serviceuser.Id}}"
+                                       {% if (serviceuser.Id==roster.serviceUserId) %}
+                                           {{ 'selected'}}
+                                       {% endif %}>
+                                   {{ serviceuser.firstName}} {{serviceuser.lastName}} [{{ serviceuser.Id }}]</option>
+                           {% endfor %}
+                       </select>
+                   </td>
+                </tr>
+
+
+
+                <tr>
+                    <td>
+                        <label>Start Time</label>
+                    </td>
+                    <td>
+                        <input type="datetime" name="startTime" value="{{ roster.rosterStartTime}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>End Time</label>
+                    </td>
+                    <td>
+                        <input type="datetime" name="endTime" value="{{ roster.rosterEndTime}}">
+                    </td>
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <label>Roster Status</label>
+                    </td>
+                    <td>
+
+                        <select name="rosterStatus">
+                            {% for rosterStatus in rosterStatusList%}
+                                <option value="{{ rosterStatus.refID}}"
+                                        {% if (rosterStatus.refID==roster.rosterStatus) %}
+                                            {{ 'selected'}}
+                                        {% endif %}>
+                                    {{ rosterStatus.refValue}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <label>Required resources</label>
+                    </td>
+                    <td>
+                        <input type="text" name="numResources" value="{{ roster.numberResourcesNeeded}}">
+                    </td>
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <label>Customer</label>
+                    </td>
+                    <td>
+
+                        <select name="customer">
+                            {% for customer in customers%}
+                                <option value="{{ customer.Id}}"
+                                        {% if (customer.Id==roster.customerid) %}
+                                            {{ 'selected'}}
+                                        {% endif %}>
+                                    {{ customer.customerName}} </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="submit"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+{% endblock %}

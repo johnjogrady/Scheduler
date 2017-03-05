@@ -1,0 +1,45 @@
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}rosters list page{% endblock %}
+
+{% block main %}
+
+    <h1>rosterlist</h1>
+    <h4><a href="rosters/create">Add New roster</a></h4>
+
+    <table>
+        {% for roster in rosters %}
+            <tr>
+                <th></th>
+
+                <th>Service User First Name</th>
+                <th>Service User Last Name</th>
+                <th>Day</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Duration</th>
+                <th>Roster Status</th>
+                <th>Customer</th>
+            </tr>
+
+            <tr>
+
+                <td>
+                    <a href="rosters/show/{{roster.id}}">View</a>
+                    <a href="rosters/update/{{roster.id}}">Edit</a>
+                    <a href="rosters/delete/{{roster.id}}">Delete</a>
+                    </td>
+
+                <td>{{ roster.sufirstname}}</td>
+                <td>{{ roster.sulastname}}</td>
+                <td>{{ roster.day}}</td>
+                 <td>{{ roster.rosterStartTime}}</td>
+                <td>{{ roster.rosterEndTime}}</td>
+                <td>{{ roster.duration}} hours</td>
+                <td>{{ roster.roster_status}}</td>
+                <td>{{ roster.customername}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

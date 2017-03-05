@@ -6,6 +6,7 @@ use Itb\Controller\CustomerController;
 use Itb\Controller\EmployeeController;
 use Itb\Controller\OfficeController;
 use Itb\Controller\ServiceUserController;
+use Itb\Controller\RosterController;
 use Silex\Application;
 use Itb\Controller\MainController;
 use Symfony\Component\Debug\ErrorHandler;
@@ -54,6 +55,7 @@ class WebApplication extends Application
         $this['employee.controller'] = function() { return new EmployeeController($this);   };
         $this['office.controller'] = function() { return new OfficeController($this);   };
         $this['serviceuser.controller'] = function() { return new ServiceUserController($this);   };
+        $this['roster.controller'] = function() { return new RosterController($this);   };
         //==============================
         // now define the routes
         //==============================
@@ -115,7 +117,20 @@ $this->get('/serviceusers/show/{id}', 'serviceuser.controller:showAction');
 $this->get('/serviceusers/update/{id}', 'serviceuser.controller:updateAction');
 $this->post('/serviceusers/update/{id}', 'serviceuser.controller:processUpdateAction');
 $this->get('/serviceusers/delete/{id}', 'serviceuser.controller:deleteAction');
-}
+        //==============================
+        //// These are the rostercontroller routes and related Controller action methods
+        //==
+$this->get('/rosters', 'roster.controller:listAction');
+$this->get('/rosters/create/', 'roster.controller:createAction');
+$this->get('/rosters/success/', 'roster.controller:successAction');
+$this->post('/rosters/create/', 'roster.controller:processCreateAction');
+$this->get('/rosters/show/{id}', 'roster.controller:showAction');
+$this->get('/rosters/update/{id}', 'roster.controller:updateAction');
+$this->post('/rosters/update/{id}', 'roster.controller:processUpdateAction');
+$this->get('/rosters/delete/{id}', 'roster.controller:deleteAction');
+
+
+    }
 
 public function handleErrorsAndExceptions ()
     {
