@@ -30,3 +30,9 @@ Added show [Customer] entity and included basic navigation between pages
 Added CRUD functionality Employee, ServiceUser and Office Controllers
 Created routes for the CRUD functions for these entities
 Created list, update, create, delete and show templates for each of these entities
+
+
+## Sunday 5th March 2017
+
+Added CRUD functionality for Rosters, updated entity relationships for missing customer lookup
+Created routes for the Roster entity and added list, update, create, delete and show templates.
