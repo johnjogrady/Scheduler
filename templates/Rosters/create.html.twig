@@ -20,24 +20,43 @@
                         </select>
                     </td>
                 </tr>
-
-
+                <tr>
+                <td>
+                    <label>Roster Date</label>
+                </td>
+                <td>
+                    <input type="date" name="rosterDate" value="">
+                </td>
+                </tr>
 
                 <tr>
+
                     <td>
                         <label>Start Time</label>
                     </td>
                     <td>
-                        <input type="datetime" name="startTime">
-                    </td>
+                        <select name="startTime">
+                            {% for time in timesArray%}
+                                <option value="{{ time}}">
+
+
+
+                                    {{ time}}</option>
+                            {% endfor %}
+                        </select>
                 </tr>
                 <tr>
                     <td>
                         <label>End Time</label>
                     </td>
                     <td>
-                        <input type="datetime" name="endTime">
-                    </td>
+                        <select name="endTime">
+                            {% for time in timesArray%}
+                                <option value="{{ time}}">
+
+                                    {{ time}}</option>
+                            {% endfor %}
+                        </select>
                 </tr>
 
                 <tr>
@@ -62,7 +81,7 @@
                         <label>Required resources</label>
                     </td>
                     <td>
-                        <input type="text" name="numResources" value="">
+                        <input type="text" name="numResources" value="0">
                     </td>
                 </tr>
                 <tr>

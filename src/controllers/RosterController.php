@@ -18,6 +18,7 @@ use Itb\Model\ServiceUserRepository;
 use Itb\Model\OfficeRepository;
 use Itb\Model\CustomerRepository;
 use Itb\WebApplication;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class RosterController
 {
@@ -70,6 +71,8 @@ class RosterController
              $serviceUsers = new serviceUserRepository();
              $serviceUsers= $serviceUsers->getAll();
 
+             $timesArray=$this->fillTimes();
+
             $rosterStatus = new LookUpReferenceRepositoryRosterStatus();
             $rosterStatus= $rosterStatus->getAll();
 
@@ -82,9 +85,9 @@ class RosterController
                 'roster' => $roster,
                 'rosterStatusList'=> $rosterStatus,
                 'serviceUsers'=>$serviceUsers,
-                'customers'=>$customers
-                //to do parse start time and start date into separate fields for drop down
-            ];
+                'customers'=>$customers,
+                'timesArray'=>$timesArray
+             ];
               return $this->app['twig']->render($templateName . '.html.twig',$argsArray);
         }
 
@@ -97,8 +100,10 @@ class RosterController
         $editedRoster->setId(filter_input(INPUT_POST, 'Id'));
         $editedRoster->setNumberResourcesNeeded(filter_input(INPUT_POST, 'numResources'));
         $editedRoster->setRosterStatus(filter_input(INPUT_POST, 'rosterStatus'));
-        $editedRoster->setRosterStartTime(filter_input(INPUT_POST, 'startTime'));
-        $editedRoster->setRosterEndTime(filter_input(INPUT_POST, 'endTime'));
+
+        $editedRoster->setRosterStartTime(filter_input(INPUT_POST, 'rosterDate').' '.(filter_input(INPUT_POST, 'startTime')));
+        $editedRoster->setRosterEndTime(filter_input(INPUT_POST, 'rosterDate').' '.(filter_input(INPUT_POST, 'endTime')));
+
         $editedRoster->setServiceUserId(filter_input(INPUT_POST, 'serviceUser'));
         $editedRoster->setcustomerId(filter_input(INPUT_POST, 'customer'));
 
@@ -127,7 +132,7 @@ class RosterController
         if($success){
             $message = "SUCCESS - roster deleted";
         } else {
-            $message = 'sorry, there was a problem deletingthat roster';
+            $message = 'sorry, there was a problem deleting that roster';
         }
         // route user to message page with success or failure notice
         $templateName = 'rosters\success';
@@ -143,14 +148,16 @@ class RosterController
 
         $customers= new CustomerRepository();
         $customers= $customers->getAll();
-
+        $timesArray=$this->fillTimes();
         $serviceUsers = new serviceUserRepository();
         $serviceUsers= $serviceUsers->getAll();
 
         $argsArray = [
             'rosterStatusList'=> $rosterStatus,
             'serviceUsers'=>$serviceUsers,
-            'customers'=>$customers
+            'customers'=>$customers,
+            'timesArray'=>$timesArray
+
 
         ];
            $templateName = 'rosters\create';
@@ -164,11 +171,13 @@ class RosterController
         $newroster= new Roster();
         $newroster->setNumberResourcesNeeded(filter_input(INPUT_POST, 'numResources'));
         $newroster->setRosterStatus(filter_input(INPUT_POST, 'rosterStatus'));
-        $newroster->setRosterStartTime(filter_input(INPUT_POST, 'startTime'));
-        $newroster->setRosterEndTime(filter_input(INPUT_POST, 'endTime'));
+        $newroster->setRosterStartTime(filter_input(INPUT_POST, 'rosterDate').' '.(filter_input(INPUT_POST, 'startTime')));
+        $newroster->setRosterEndTime(filter_input(INPUT_POST, 'rosterDate').' '.(filter_input(INPUT_POST, 'endTime')));
+
         $newroster->setServiceUserId(filter_input(INPUT_POST, 'serviceUser'));
         $newroster->setcustomerId(filter_input(INPUT_POST, 'customer'));
         $newroster->getId();
+        var_dump($newroster);
         $rosterRepo= new rosterRepository();
         $success = $rosterRepo->create($newroster);
         $templateName = 'rosters\success';
@@ -198,5 +207,19 @@ class RosterController
 
         $templateName = 'rosters\show';
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+    }
+// utility function to create an array of times in 15 min intervals for dropdowns
+    public function fillTimes() {
+        $arrayOfTimes= [];
+        $time = "00:00";
+        $arrayOfTimes[0]="00:00";
+
+        for ($i = 1; $i <= 95; $i++) {
+
+            $time+= strtotime("+15 minutes", strtotime($time));
+            $arrayOfTimes[$i]= strftime("%R", date($time));
+
+        }
+        return $arrayOfTimes;
     }
 }

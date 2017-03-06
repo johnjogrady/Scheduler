@@ -29,22 +29,44 @@
                    </td>
                 </tr>
 
-
-
                 <tr>
                     <td>
-                        <label>Start Time</label>
+                        <label>Date of Roster</label>
                     </td>
                     <td>
-                        <input type="datetime" name="startTime" value="{{ roster.rosterStartTime}}">
+                        <input type="datetime" name="rosterDate" value="{{ roster.rosterStartTime|date("Y/m/d")}}">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label>End Time</label>
+                        <label>Roster Start Time</label>
                     </td>
                     <td>
-                        <input type="datetime" name="endTime" value="{{ roster.rosterEndTime}}">
+                        <select name="startTime">
+                            {% for time in timesArray%}
+                                <option value="{{ time}}"
+                                        {% if (time==roster.rosterStartTime|date("H:i")) %}
+                                            {{ 'selected'}}
+                                        {% endif %}>
+                                    {{ time}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Roster End Time</label>
+                    </td>
+                    <td>
+                        <select name="endTime">
+                            {% for time in timesArray%}
+                                <option value="{{ time}}"
+                                        {% if (time==roster.rosterEndTime|date("H:i")) %}
+                                            {{ 'selected'}}
+                                        {% endif %}>
+                                    {{ time}}</option>
+                            {% endfor %}
+                        </select>
                     </td>
                 </tr>
 
