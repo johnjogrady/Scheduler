@@ -36,3 +36,7 @@ Created list, update, create, delete and show templates for each of these entiti
 
 Added CRUD functionality for Rosters, updated entity relationships for missing customer lookup
 Created routes for the Roster entity and added list, update, create, delete and show templates.
+
+## Monday 6th March 2017
+V1.2  Updated roster functionality so that date and times can be selected in separate form controls,
+updated roster controller to parse both fields into a single datetime object when writing to database
