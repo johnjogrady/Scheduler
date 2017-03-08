@@ -11,6 +11,7 @@ namespace Itb\Controller;
 use Itb\Model\ServiceUser;
 use Itb\model\ServiceUserRepository;
 use Itb\model\ServiceUserRepositoryView;
+use Itb\model\RosterRepositoryView;
 use Itb\Model\LookUpReferenceRepositoryCounties;
 
 use Itb\model\OfficeRepository;
@@ -90,8 +91,6 @@ class ServiceUserController
         $editedServiceUser->setAddressLine1(filter_input(INPUT_POST, 'addressLine1'));
         $editedServiceUser->setAddressLine2(filter_input(INPUT_POST, 'addressLine2'));
         $editedServiceUser->setAddressLine3(filter_input(INPUT_POST, 'addressLine3'));
-        // to do resolve isActive
-        //$editedServiceUser->setIsActive(filter_input(INPUT_POST, 'isActive'));
 
         $editedServiceUser->setStartDate(filter_input(INPUT_POST, 'startDate'));
        $editedServiceUser->setCountyPostcode(filter_input(INPUT_POST, 'countyPostcode'));
@@ -99,12 +98,18 @@ class ServiceUserController
         $editedServiceUser->setMobileTelephone(filter_input(INPUT_POST, 'mobileTelephone'));
         $editedServiceUser->setLandlineTelephone(filter_input(INPUT_POST, 'landlineTelephone'));
         $editedServiceUser->setManagingOffice(filter_input(INPUT_POST, 'managingOffice'));
+        if (isset($_POST['isActive']))
+            $editedServiceUser->setIsActive(1);
+        else
+            $editedServiceUser->setIsActive(0);
+        var_dump($editedServiceUser);
+
         $ServiceUserRepo= new ServiceUserRepository();
         $success = $ServiceUserRepo->update($editedServiceUser);
         $templateName = 'ServiceUsers\success';
         if($success){
             $id = $editedServiceUser->getId(); // get ID of new record
-            $message = "SUCCESS -  ServiceUser with ID = $id updated";
+            $message = "SUCCESS -  ServiceUser with ID = ".$id." updated";
         } else {
             $message = 'sorry, there was a problem updating that Service User';
         }
@@ -167,13 +172,14 @@ class ServiceUserController
         $newServiceUser->setMobileTelephone(filter_input(INPUT_POST, 'mobileTelephone'));
         $newServiceUser->setLandlineTelephone(filter_input(INPUT_POST, 'landlineTelephone'));
         $newServiceUser->setManagingOffice(filter_input(INPUT_POST, 'managingOffice'));
+        $newServiceUser->setIsActive(filter_input(INPUT_POST, 'isActive'));
         $newServiceUser->getId();
         $customerRepo= new CustomerRepository();
         $success = $customerRepo->create($newServiceUser);
         $templateName = 'ServiceUsers\success';
         if($success){
             $id = $newServiceUser->getId(); // get ID of new record
-            $message = "SUCCESS - new customer with ID = $id created";
+            $message = "SUCCESS - new customer with ID ='.$id.'created";
         } else {
             $message = 'sorry, there was a problem creating new customer';
         }
@@ -188,10 +194,15 @@ class ServiceUserController
         // get reference to our repository
         $ServiceUserRepository = new ServiceUserRepositoryView();
         $serviceUser = $ServiceUserRepository->getOneById($id);
+        $RosterRepository = new RosterRepositoryView();
+        $foreignKey="serviceuserid";
+        $rosters= $RosterRepository->getAllForId($id,$foreignKey);
+        //var_dump($rosters);
          //to do update to get one by id
         // get array of attributes for that customer, ready for view to use to populate form
         $argsArray = [
-            'serviceUser' => $serviceUser
+            'serviceUser' => $serviceUser,
+            'rosters'=>$rosters
         ];
 
 

@@ -117,6 +117,11 @@ $this->get('/serviceusers/show/{id}', 'serviceuser.controller:showAction');
 $this->get('/serviceusers/update/{id}', 'serviceuser.controller:updateAction');
 $this->post('/serviceusers/update/{id}', 'serviceuser.controller:processUpdateAction');
 $this->get('/serviceusers/delete/{id}', 'serviceuser.controller:deleteAction');
+$this->get('/serviceusers/rosters/show/{id}', 'roster.controller:showAction');
+$this->get('/serviceusers/rosters/delete/{id}', 'roster.controller:deleteAction');
+$this->get('/serviceusers/rosters/update/{id}', 'roster.controller:updateAction');
+$this->post('/serviceusers/rosters/update/{id}', 'roster.controller:processUpdateAction');
+
         //==============================
         //// These are the rostercontroller routes and related Controller action methods
         //==

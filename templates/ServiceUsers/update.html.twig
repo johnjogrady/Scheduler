@@ -123,7 +123,10 @@
                         <label>Is Active:</label>
                     </td>
                     <td>
-                        <input type="checkbox" name="isActive" value="{{ serviceUser.isActive}}">
+                        <input type="checkbox" name="isActive"
+                            {% if (serviceUser.isActive== true) %}
+                               checked="Checked"
+                                     {% endif %}>
                     </td>
                 </tr>
                 <tr>

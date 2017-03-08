@@ -130,7 +130,7 @@ class RosterController
         $rosterRepository = new rosterRepository();
         $success = $rosterRepository->delete($id);
         if($success){
-            $message = "SUCCESS - roster deleted";
+            $message = "SUCCESS - roster id: ". $id." deleted";
         } else {
             $message = 'sorry, there was a problem deleting that roster';
         }

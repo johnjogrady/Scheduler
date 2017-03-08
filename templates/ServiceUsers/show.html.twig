@@ -52,13 +52,51 @@
         </tr>
         <tr>
             <td>Active serviceUser?</td>
-            <td>{{ serviceUser.isActive}}</td>
+            <td> {% if (serviceUser.isActive== true) %}
+                Active
+                {% elseif (serviceUser.isActive== false) %}
+                Inactive
+                {% endif %}</td>
         </tr>
     </table>
 
+
+
+    <table>
+        {% for roster in rosters %}
+            <tr>
+                <th></th>
+
+                <th>Day</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Duration</th>
+                <th>Roster Status</th>
+                <th>Customer</th>
+            </tr>
+
+            <tr>
+
+                <td>
+                    <a href="../rosters/show/{{roster.id}}">View</a>
+                    <a href="../rosters/update/{{roster.id}}">Edit</a>
+                    <a href="../rosters/delete/{{roster.id}}">Delete</a>
+                </td>
+
+
+                <td>{{ roster.day}}</td>
+                <td>{{ roster.rosterStartTime}}</td>
+                <td>{{ roster.rosterEndTime}}</td>
+                <td>{{ roster.duration}} hours</td>
+                <td>{{ roster.roster_status}}</td>
+                <td>{{ roster.customername}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br>
     <a href="../update/{{serviceUser.Id}}">Edit serviceUser</a>
     <a href="/../delete/{{serviceUser.Id}}">Delete serviceUser</a>
     </br>
     <a href="/../serviceUsers">Return to serviceUser list</a>
-
 {% endblock %}
