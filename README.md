@@ -40,3 +40,9 @@ Created routes for the Roster entity and added list, update, create, delete and 
 ## Monday 6th March 2017
 V1.2  Updated roster functionality so that date and times can be selected in separate form controls,
 updated roster controller to parse both fields into a single datetime object when writing to database
+
+## Wed 8th March 2017
+V1.3 
+Resolved issue with Check box on Service User record for isActive flag
+Added getAllForId method to Matt's PDO- takes id and foreignkeyattribute and retrieves all records for an entity where foreignkeyattribute = id
+Added sub table with rosters for each service user
