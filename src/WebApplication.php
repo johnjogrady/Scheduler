@@ -116,8 +116,11 @@ $this->post('/serviceusers/create/', 'serviceuser.controller:processCreateAction
 $this->get('/serviceusers/show/{id}', 'serviceuser.controller:showAction');
 $this->get('/serviceusers/update/{id}', 'serviceuser.controller:updateAction');
 $this->post('/serviceusers/update/{id}', 'serviceuser.controller:processUpdateAction');
+
+
 $this->get('/serviceusers/delete/{id}', 'serviceuser.controller:deleteAction');
 $this->get('/serviceusers/rosters/show/{id}', 'roster.controller:showAction');
+$this->post('/serviceusers/show/{id}', 'roster.controller:createAction');
 $this->get('/serviceusers/rosters/delete/{id}', 'roster.controller:deleteAction');
 $this->get('/serviceusers/rosters/update/{id}', 'roster.controller:updateAction');
 $this->post('/serviceusers/rosters/update/{id}', 'roster.controller:processUpdateAction');
@@ -127,6 +130,7 @@ $this->post('/serviceusers/rosters/update/{id}', 'roster.controller:processUpdat
         //==
 $this->get('/rosters', 'roster.controller:listAction');
 $this->get('/rosters/create/', 'roster.controller:createAction');
+$this->get('/rosters/create/{id}', 'roster.controller:createAction');
 $this->get('/rosters/success/', 'roster.controller:successAction');
 $this->post('/rosters/create/', 'roster.controller:processCreateAction');
 $this->get('/rosters/show/{id}', 'roster.controller:showAction');

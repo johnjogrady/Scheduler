@@ -92,7 +92,10 @@ class EmployeeController
         $editedEmployee->setAddressLine2(filter_input(INPUT_POST, 'addressLine2'));
         $editedEmployee->setAddressLine3(filter_input(INPUT_POST, 'addressLine3'));
         // to do resolve isActive
-        //$editedEmployee->setIsActive(filter_input(INPUT_POST, 'isActive'));
+        if (isset($_POST['isActive']))
+            $editedEmployee->setIsActive(1);
+        else
+            $editedEmployee->setIsActive(0);
 
         $editedEmployee->setStartDate(filter_input(INPUT_POST, 'startDate'));
         $editedEmployee->setStaffNumber(filter_input(INPUT_POST, 'staffNumber'));
@@ -171,6 +174,11 @@ class EmployeeController
         $newEmployee->setLandlineTelephone(filter_input(INPUT_POST, 'landlineTelephone'));
         $newEmployee->setManagingOffice(filter_input(INPUT_POST, 'managingOffice'));
         $newEmployee->setMainContact(filter_input(INPUT_POST, 'mainContact'));
+        if (isset($_POST['isActive']))
+            $newEmployee->setIsActive(1);
+        else
+            $newEmployee->setIsActive(0);
+
         $newEmployee->getId();
         $customerRepo= new CustomerRepository();
         $success = $customerRepo->create($newEmployee);

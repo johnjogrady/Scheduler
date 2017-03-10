@@ -149,6 +149,7 @@ class RosterController
         $customers= new CustomerRepository();
         $customers= $customers->getAll();
         $timesArray=$this->fillTimes();
+        $id=(filter_input(INPUT_POST, 'Id'));
         $serviceUsers = new serviceUserRepository();
         $serviceUsers= $serviceUsers->getAll();
 
@@ -156,11 +157,11 @@ class RosterController
             'rosterStatusList'=> $rosterStatus,
             'serviceUsers'=>$serviceUsers,
             'customers'=>$customers,
-            'timesArray'=>$timesArray
-
+            'timesArray'=>$timesArray,
+            'Id'=>$id
 
         ];
-           $templateName = 'rosters\create';
+            $templateName = 'rosters\create';
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 

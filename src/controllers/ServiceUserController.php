@@ -102,7 +102,6 @@ class ServiceUserController
             $editedServiceUser->setIsActive(1);
         else
             $editedServiceUser->setIsActive(0);
-        var_dump($editedServiceUser);
 
         $ServiceUserRepo= new ServiceUserRepository();
         $success = $ServiceUserRepo->update($editedServiceUser);
@@ -172,7 +171,11 @@ class ServiceUserController
         $newServiceUser->setMobileTelephone(filter_input(INPUT_POST, 'mobileTelephone'));
         $newServiceUser->setLandlineTelephone(filter_input(INPUT_POST, 'landlineTelephone'));
         $newServiceUser->setManagingOffice(filter_input(INPUT_POST, 'managingOffice'));
-        $newServiceUser->setIsActive(filter_input(INPUT_POST, 'isActive'));
+        if (isset($_POST['isActive']))
+            $newServiceUser->setIsActive(1);
+        else
+            $newServiceUser->setIsActive(0);
+
         $newServiceUser->getId();
         $customerRepo= new CustomerRepository();
         $success = $customerRepo->create($newServiceUser);

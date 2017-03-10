@@ -76,14 +76,14 @@ span.highlight_name {
 	font-size: 2rem;
 	font-family:Serif;
 	padding:3px 3px 3px 5px;
-	color:#ffff00;                
+	color:#ffff00;
                 }
 
 em.highlight_name {
 		font-size: 1.25rem;
 		color:#ffff00;
 		}
-		
+
 
 input{
 	padding:3px;
@@ -94,7 +94,7 @@ input{
 fieldset {
 	width:600px;
 	border-style:none;
-	
+
 }
 legend	{
 	padding: 15px 15px 15px 15px;

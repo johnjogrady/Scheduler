@@ -8,7 +8,7 @@
     <table>
 
 
-        <input type="hidden" name="Id" value="{{employee.Id}}" >
+        <input type="hidden" name="Id" value="{{employee.Id}}" />
         <tr>
             <td>Staff Number:</td>
             <td>{{employee.staffNumber}}</td>
@@ -55,13 +55,18 @@
         </tr>
         <tr>
             <td>Active Employee?</td>
-            <td>{{ employee.isActive}}</td>
+            <td>
+    {% if (employee.isActive== true) %}
+            Active
+        {% elseif (employee.isActive== false) %}
+             Inactive
+    {% endif %}</td>
         </tr>
     </table>
 
     <a href="../update/{{employee.Id}}">Edit employee</a>
     <a href="/../delete/{{employee.Id}}">Delete employee</a>
-    </br>
+    <br>
     <a href="/../employees">Return to employee list</a>
 
 {% endblock %}

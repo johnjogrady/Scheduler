@@ -9,12 +9,16 @@
 
                     <td>
                         <label>Service User</label>
+
                     </td>
                     <td>
 
                         <select name="serviceUser">
                             {% for serviceuser in serviceUsers%}
-                                <option value="{{ serviceuser.Id}}">
+                                <option value="{{ serviceuser.Id}}"
+                                        {% if (Id== serviceuser.id) %}
+                                            {{ 'selected'}}
+                                        {% endif %}>
                                     {{ serviceuser.firstName}} {{serviceuser.lastName}} [{{ serviceuser.Id }}]</option>
                             {% endfor %}
                         </select>

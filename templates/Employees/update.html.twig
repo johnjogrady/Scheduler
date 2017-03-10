@@ -131,8 +131,12 @@
                         <label>Is Active:</label>
                     </td>
                     <td>
-                        <input type="checkbox" name="isActive" value="{{ employee.isActive}}">
-                    </td>
+                        <input type="checkbox" name="isActive"
+                                {% if (employee.isActive== true) %}
+                            checked="Checked"
+                                {% endif %}></td>
+
+
                 </tr>
                 <tr>
                 <tr>

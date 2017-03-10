@@ -3,8 +3,11 @@
 
 {% block pageTitle %}Edit Service User Details{% endblock %}
 {% block main %}
+    <form action="" method="post">
     <p>Service User Details</p>
 
+    <div class="column_container">
+    <section class="flex">
     <table>
 
 
@@ -59,10 +62,13 @@
                 {% endif %}</td>
         </tr>
     </table>
+    </section>
+    </div>
 
 
 
     <table>
+        <td><input type="submit" value="Add A Roster For this Service User"></td>
         {% for roster in rosters %}
             <tr>
                 <th></th>
@@ -93,10 +99,12 @@
             </tr>
         {% endfor %}
     </table>
-
+    </section>
+    </div>
     <br>
     <a href="../update/{{serviceUser.Id}}">Edit serviceUser</a>
     <a href="/../delete/{{serviceUser.Id}}">Delete serviceUser</a>
     </br>
     <a href="/../serviceUsers">Return to serviceUser list</a>
+    </form>
 {% endblock %}
