@@ -46,3 +46,10 @@ V1.3
 Resolved issue with Check box on Service User record for isActive flag
 Added getAllForId method to Matt's PDO- takes id and foreignkeyattribute and retrieves all records for an entity where foreignkeyattribute = id
 Added sub table with rosters for each service user
+
+## Thurs 9th March 2017
+
+V1.4
+Tided up CSS
+Added ability to add a roster from a service user record and wired drop down on roster record to correct service user
+Tidied up Employee isactive CRUD and form values
