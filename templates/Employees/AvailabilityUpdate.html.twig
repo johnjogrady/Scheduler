@@ -1,0 +1,87 @@
+
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}Edit employee Details{% endblock %}
+{% block main %}
+
+    <h1>Edit Employee Unavailable Time</h1>
+    <div class="column_container">
+        <form action="" method="post">
+            <table>
+                     <input type="hidden" name="employeeId" value="{{unavailableTime.employeeid}}" >
+                <tr>
+                    <td>
+                        <label>Unavailable Time:</label>
+                    </td>
+
+                    <td>
+                        <select name="dayOfWeek">
+                            {% for day in daysArray%}
+                                <option value="{{ day}}"
+                                        >
+                                    {{ day}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+
+                    </tr>
+                <tr>
+                    <td>
+                        <label>Start Time:</label>
+                    </td>
+                    <td>
+                        <select name="startTime">
+                        {% for time in timesArray%}
+                            <option value="{{ time}}"
+                                    {% if (time==unavailableTime.startTime|date("H:i")) %}
+                                        {{ 'selected'}}
+                                    {% endif %}>
+                                {{ time}}</option>
+                        {% endfor %}
+                            </select>
+                    </td>
+                </tr>
+                <tr>  <tr>
+                    <td>
+                        <label>Start Time:</label>
+                    </td>
+                    <td>
+                        <select name="endTime">
+                            {% for time in timesArray%}
+                                <option value="{{ time}}"
+                                        {% if (time==unavailableTime.endTime|date("H:i")) %}
+                                            {{ 'selected'}}
+                                        {% endif %}>
+                                    {{ time}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <tr>
+                    <td>
+                        <label>Reason for Unavailability:</label>
+
+                    </td>
+                        <td>
+                    <select name="unavailableReason" >
+                        {% for unavailableReason in unavailableReasons %}
+                            <option value="{{ unavailableReason.refID}}"
+                                    {% if (unavailableReason.refID== unavailableTime.unavailabilityReason) %}
+                                        {{ 'selected'}}
+                                    {% endif %}>
+                                {{ unavailableReason.refValue}}</option>
+                        {% endfor %}
+                    </select>
+                        </td>
+                </tr>
+                <tr>
+                <tr>
+                    <td></td>
+                <td><input type="submit"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+{% endblock %}

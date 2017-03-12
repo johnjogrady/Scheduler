@@ -11,6 +11,10 @@ namespace Itb\Controller;
 use Itb\Model\Employee;
 use Itb\model\EmployeeRepository;
 use Itb\model\EmployeeRepositoryView;
+use Itb\model\EmployeeUnavailabilityTime;
+use Itb\model\EmployeeUnavailableTimeRepository;
+use Itb\model\EmployeeUnavailableTimeRepositoryView;
+use Itb\Model\LookUpReferenceRepositoryUnavailableReasons;
 use Itb\Model\LookUpReferenceRepositoryCounties;
 
 use Itb\model\OfficeRepository;
@@ -30,6 +34,7 @@ class EmployeeController
         // get reference to our repository
         $employeeRepository= new EmployeeRepositoryView();
         $employees= $employeeRepository->getAll();
+
 
         $argsArray = [
             'employees' => $employees
@@ -199,14 +204,191 @@ class EmployeeController
         // get reference to our repository
         $employeeRepository = new EmployeeRepositoryView();
         $employee = $employeeRepository->getOneById($id);
+        $foreignKey="employeeid";
+
+        $unavailableTimesRepo= new EmployeeUnavailableTimeRepositoryView();
+        $unavailableTimes= $unavailableTimesRepo->getAllForId($id,$foreignKey);
+        $unavailableReasons= new LookUpReferenceRepositoryUnavailableReasons();
+        $unavailableReasons= $unavailableReasons->getAll();
+
         //to do update to get one by id
         // get array of attributes for that customer, ready for view to use to populate form
         $argsArray = [
-            'employee' => $employee
+            'employee' => $employee,
+            'unavailableTimes' => $unavailableTimes
         ];
 
 
         $templateName = 'Employees\show';
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+    }
+
+    public function availabilityUpdateAction($id)
+    {
+        // get reference to our repository
+        $unavailableTimesRepo= new EmployeeUnavailableTimeRepositoryView();
+        $unavailableTime= $unavailableTimesRepo->getOneById($id);
+
+        $unavailableReasons= new LookUpReferenceRepositoryUnavailableReasons();
+        $unavailableReasons= $unavailableReasons->getAll();
+        $timesArray=$this->fillTimes();
+        $daysArray=$this->fillDays();
+        $templateName = 'Employees\AvailabilityUpdate';
+            $argsArray = [
+                'unavailableTime' => $unavailableTime,
+                'unavailableReasons' =>$unavailableReasons
+                ,'timesArray'=>$timesArray,
+                'daysArray'=>$daysArray];
+
+
+            return $this->app['twig']->render($templateName . '.html.twig',$argsArray);
+        }
+
+
+
+    public function processAvailabilityUpdateAction()
+    {
+        // get reference to our repository
+        $unavailableTime= new EmployeeUnavailabilityTime();
+        $unavailableTime->setEndTime(filter_input(INPUT_POST, 'endTime'));
+        $unavailableTime->setStartTime(filter_input(INPUT_POST, 'startTime'));
+        $unavailableTime->setEmployeeId(filter_input(INPUT_POST, 'employeeId'));
+        $unavailableTime->setId(filter_input(INPUT_POST, 'Id'));
+
+        $unavailableTime->setUnavailabilityReason(filter_input(INPUT_POST, 'unavailableReason'));
+        $dayofWeek=filter_input(INPUT_POST, 'dayOfWeek');
+        if ($dayofWeek=="Sunday")
+            $unavailableTime->setDayOfWeek(1);
+        else if ($dayofWeek=="Monday")
+            $unavailableTime->setDayOfWeek(2);
+        else if ($dayofWeek=="Tuesday")
+            $unavailableTime->setDayOfWeek(3);
+        else if ($dayofWeek=="Wednesday")
+            $unavailableTime->setDayOfWeek(4);
+        else if ($dayofWeek=="Thursday")
+            $unavailableTime->setDayOfWeek(5);
+        else if ($dayofWeek=="Friday")
+            $unavailableTime->setDayOfWeek(6);
+        else if ($dayofWeek=="Saturday")
+            $unavailableTime->setDayOfWeek(7);
+
+        $unavailableTime->getId();
+
+
+        $unavailableTimeRepo= new EmployeeUnavailableTimeRepository();
+        $success = $unavailableTimeRepo->update($unavailableTime);
+         $templateName = 'Employees\success';
+        if($success){
+             $message = "SUCCESS - Unavailable Time updated";
+        } else {
+            $message = 'sorry, there was a problem updating Unavailable Time ';
+        }
+        // route user to message page with success or failure notice
+
+        $argsArray = [  'message' => $message];
+        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+    }
+
+    public function availabilityCreateAction($id)
+    {
+        // get reference to our repository
+        $employeeRepository = new EmployeeRepositoryView();
+        $employee = $employeeRepository->getOneById($id);
+        $unavailableReasons= new LookUpReferenceRepositoryUnavailableReasons();
+        $unavailableReasons= $unavailableReasons->getAll();
+        $timesArray=$this->fillTimes();
+        $daysArray=$this->fillDays();
+        $templateName = 'Employees\AvailabilityCreate';
+        $argsArray = [
+            'unavailableReasons' =>$unavailableReasons
+            ,'timesArray'=>$timesArray,
+            'id'=>$id,
+            'daysArray'=>$daysArray];
+
+
+        return $this->app['twig']->render($templateName . '.html.twig',$argsArray);
+    }
+
+    public function processAvailabilityCreateAction()
+    {
+        // get reference to our repository
+        $unavailableTime= new EmployeeUnavailabilityTime();
+        $unavailableTime->setEndTime(filter_input(INPUT_POST, 'endTime'));
+        $unavailableTime->setStartTime(filter_input(INPUT_POST, 'startTime'));
+        $unavailableTime->setEmployeeId(filter_input(INPUT_POST, 'employeeId'));
+        $unavailableTime->setId(filter_input(INPUT_POST, 'Id'));
+
+        $unavailableTime->setUnavailabilityReason(filter_input(INPUT_POST, 'unavailableReason'));
+        $dayofWeek=filter_input(INPUT_POST, 'dayOfWeek');
+        if ($dayofWeek=="Sunday")
+            $unavailableTime->setDayOfWeek(0);
+        else if ($dayofWeek=="Monday")
+            $unavailableTime->setDayOfWeek(1);
+        else if ($dayofWeek=="Tuesday")
+            $unavailableTime->setDayOfWeek(2);
+        else if ($dayofWeek=="Wednesday")
+            $unavailableTime->setDayOfWeek(3);
+        else if ($dayofWeek=="Thursday")
+            $unavailableTime->setDayOfWeek(4);
+        else if ($dayofWeek=="Friday")
+            $unavailableTime->setDayOfWeek(5);
+        else if ($dayofWeek=="Saturday")
+            $unavailableTime->setDayOfWeek(6);
+
+        $unavailableTime->getId();
+
+
+        $unavailableTimeRepo= new EmployeeUnavailableTimeRepository();
+        $success = $unavailableTimeRepo->create($unavailableTime);
+        $templateName = 'Employees\success';
+        if($success){
+            $message = "SUCCESS - Unavailable Time updated";
+        } else {
+            $message = 'sorry, there was a problem updating Unavailable Time ';
+        }
+        // route user to message page with success or failure notice
+
+        $argsArray = [  'message' => $message];
+        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+    }
+
+
+    public function availabilityDeleteAction($id)
+    {
+        // get reference to our repository
+        $unavailableTimeRepo= new EmployeeUnavailableTimeRepository();
+        $success = $unavailableTimeRepo->delete($id);
+        if($success){
+            $message = 'SUCCESS - unavailability record deleted';
+        } else {
+            $message = 'sorry, there was a problem deleting that unavailability record';
+        }
+        // route user to message page with success or failure notice
+        $templateName = 'Employee\success';
+        $argsArray = [  'message' => $message];
+        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+    }
+
+
+// utility function to create an array of times in 15 min intervals for dropdowns
+    public function fillTimes() {
+        $arrayOfTimes= [];
+        $time = "00:00";
+        $arrayOfTimes[0]="00:00";
+
+        for ($i = 1; $i <= 95; $i++) {
+
+            $time+= strtotime("+15 minutes", strtotime($time));
+            $arrayOfTimes[$i]= strftime("%R", date($time));
+
+        }
+        return $arrayOfTimes;
+    }
+
+    // utility function to create an array of days of the weeksfor dropdowns
+    public function fillDays() {
+        $arrayOfDays= ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+        return $arrayOfDays;
     }
 }

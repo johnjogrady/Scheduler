@@ -90,8 +90,11 @@ $this->get('/employees/show/{id}', 'employee.controller:showAction');
 $this->get('/employees/update/{id}', 'employee.controller:updateAction');
 $this->post('/employees/update/{id}', 'employee.controller:processUpdateAction');
 $this->get('/employees/delete/{id}', 'employee.controller:deleteAction');
-
-
+$this->get('/employees/availabilityupdate/{id}', 'employee.controller:availabilityUpdateAction');
+$this->post('/employees/availabilityupdate/{id}', 'employee.controller:processAvailabilityUpdateAction');
+$this->get('/employees/availabilitycreate/{id}', 'employee.controller:availabilityCreateAction');
+$this->post('/employees/availabilitycreate/{id}', 'employee.controller:processAvailabilityCreateAction');
+$this->get('/employees/availabilitydelete/{id}', 'employee.controller:availabilityDeleteAction');
     //==============================
     // These are the office controller routes and related Controller action methods
     //==
@@ -120,7 +123,8 @@ $this->get('/serviceusers/addDoNotSend/{id}', 'serviceuser.controller:addDoNotSe
 $this->post('/serviceusers/addDoNotSend/{id}', 'serviceuser.controller:processDoNotSendAction');
 $this->get('/serviceusers/assignEmployee/{id}', 'serviceuser.controller:assignEmployeeAction');
 $this->post('/serviceusers/assignEmployee/{id}', 'serviceuser.controller:processAssignEmployeeAction');
-
+$this->get('/serviceusers/donotsenddelete/{id}', 'serviceuser.controller:removeDoNotSendAction');
+$this->get('/serviceusers/removeassignment/{id}', 'serviceuser.controller:removeEmployeeAssignmentAction');
 $this->get('/serviceusers/delete/{id}', 'serviceuser.controller:deleteAction');
 $this->get('/serviceusers/rosters/show/{id}', 'roster.controller:showAction');
 $this->get('/serviceusers/rosters/create/{id}', 'roster.controller:createAction');

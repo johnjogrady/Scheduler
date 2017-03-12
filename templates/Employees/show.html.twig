@@ -4,7 +4,8 @@
 {% block pageTitle %}Edit employee Details{% endblock %}
 {% block main %}
     <p>employee Details</p>
-
+    <div class="column_container">
+    <section class="flex">
     <table>
 
 
@@ -63,10 +64,100 @@
     {% endif %}</td>
         </tr>
     </table>
+    </section>
+        <section>
+            <h2>Unavailable Times for this employee</h2>
+            <table>
+
+                <tr>
+                    <th></th>
+
+                    <th>Day</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Reason</th>
+
+                </tr>
+
+                <tr>
+                    <a href="../availabilitycreate/{{ employee.Id }}">Create New Unavailability</a>
+
+                    {% for unavailableTime in unavailableTimes%}
+
+                    <td>
+
+                        <a href="../rosters/show/{{unavailableTime.id}}">View</a>
+
+                        <a href="../availabilityupdate/{{unavailableTime.id}}">Edit</a>
+                        <a href="../availabilitydelete/{{unavailableTime.id}}">Delete</a>
+                    </td>
+
+
+                    <td>{{ unavailableTime.weekday}}</td>
+                    <td>{{ unavailableTime.startTime}}</td>
+                    <td>{{ unavailableTime.endTime}}</td>
+                    <td>{{ unavailableTime.reason}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
+    </div>
 
     <a href="../update/{{employee.Id}}">Edit employee</a>
     <a href="/../delete/{{employee.Id}}">Delete employee</a>
     <br>
     <a href="/../employees">Return to employee list</a>
 
+
+    <!-- Trigger/Open The Modal
+
+    <button id="myBtn">Open Modal</button>
+
+
+    <div id="myModal" class="modal">
+
+
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <label>How many pints?</label>
+            <input type="hidden" name="Id" value="" >
+            <tr>
+                <td>
+                    <label>Unavailable Time:</label>
+                </td>
+
+                <input type="text" name="example"/>
+            <input type="submit" />
+        </div>
+
+    </div>
+-->
+    <script>
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 {% endblock %}

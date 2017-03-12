@@ -10,8 +10,10 @@ namespace Itb\Controller;
 
 use Itb\model\AssignedEmployee;
 use Itb\Model\AssignedEmployeeRepository;
+use Itb\Model\AssignedEmployeeRepositoryView;
 use Itb\Model\DoNotSend;
 use Itb\Model\DoNotSendRepository;
+use Itb\Model\DoNotSendRepositoryView;
 use Itb\model\EmployeeRepository;
 use Itb\Model\ServiceUser;
 use Itb\model\ServiceUserRepository;
@@ -46,7 +48,14 @@ class ServiceUserController
     public function successAction()
     {
         $templateName = 'ServiceUsers\success';
-        return $this->app['twig']->render($templateName . '.html.twig');
+        $ServiceUserRepository= new ServiceUserRepositoryView();
+        $serviceUsers= $ServiceUserRepository->getAll();
+
+        $argsArray = [
+            'serviceUsers' => $serviceUsers
+        ];
+        $templateName = 'ServiceUsers\list';
+        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
     public function updateAction($id)
@@ -95,33 +104,46 @@ class ServiceUserController
         $editedServiceUser->setAddressLine1(filter_input(INPUT_POST, 'addressLine1'));
         $editedServiceUser->setAddressLine2(filter_input(INPUT_POST, 'addressLine2'));
         $editedServiceUser->setAddressLine3(filter_input(INPUT_POST, 'addressLine3'));
-        if (isset($_POST['startDate']))
-            $editedServiceUser->setIsActive(filter_input(INPUT_POST, 'startDate'));
-        if (isset($_POST['finishDate']))
-            $editedServiceUser->setIsActive(filter_input(INPUT_POST, 'finishDate'));
         $editedServiceUser->setCountyPostcode(filter_input(INPUT_POST, 'countyPostcode'));
         $editedServiceUser->setEirCode(filter_input(INPUT_POST, 'eirCode'));
         $editedServiceUser->setMobileTelephone(filter_input(INPUT_POST, 'mobileTelephone'));
         $editedServiceUser->setLandlineTelephone(filter_input(INPUT_POST, 'landlineTelephone'));
         $editedServiceUser->setManagingOffice(filter_input(INPUT_POST, 'managingOffice'));
+
+        if(filter_input(INPUT_POST, 'startDate')=="")
+            $editedServiceUser->setStartDate(NULL);
+        else
+            $editedServiceUser->setStartDate(filter_input(INPUT_POST, 'startDate'));
+
+        if(filter_input(INPUT_POST, 'finishDate')=="")
+            $editedServiceUser->setFinishDate(NULL);
+        else
+            $editedServiceUser->setFinishDate(filter_input(INPUT_POST, 'finishDate'));
+
         if (isset($_POST['isActive']))
             $editedServiceUser->setIsActive(1);
         else
             $editedServiceUser->setIsActive(0);
-        $ServiceUserRepo= new ServiceUserRepository();
-        $success = $ServiceUserRepo->update($editedServiceUser);
-        $templateName = 'ServiceUsers\success';
+          $serviceUserRepo= new ServiceUserRepository();
+        $success = $serviceUserRepo->update($editedServiceUser);
         if($success){
             $id = $editedServiceUser->getId(); // get ID of new record
-            $message = "SUCCESS -  ServiceUser with ID = ".$id." updated";
+            $message = "SUCCESS - new service user ".$editedServiceUser->getFirstName()." ".$editedServiceUser->getLastName()." has been updated";
         } else {
-            $message = 'sorry, there was a problem updating that Service User';
+            $message = 'sorry, there was a problem editing that service user, please try again';
         }
         // route user to message page with success or failure notice
 
-        $argsArray = [  'message' => $message];
+        $ServiceUserRepository= new ServiceUserRepositoryView();
+        $serviceUsers= $ServiceUserRepository->getAll();
+
+        $templateName = 'ServiceUsers\success';
+        $argsArray = [  'message' => $message,
+            'serviceUsers' => $serviceUsers];
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
-    }
+
+
+}
 
 
 
@@ -131,14 +153,19 @@ class ServiceUserController
         $ServiceUserRepository= new ServiceUserRepository();
         $success = $ServiceUserRepository->delete($id);
         if($success){
-            $message = "SUCCESS - ServiceUser deleted";
+            $message = "SUCCESS - service user deleted";
         } else {
-            $message = 'sorry, there was a problem deleting that ServiceUser';
+            $message = 'sorry, there was a problem deleting that service user';
         }
         // route user to message page with success or failure notice
-        $templateName = 'ServiceUser\success';
-        $argsArray = [  'message' => $message];
+        $ServiceUserRepository= new ServiceUserRepositoryView();
+        $serviceUsers= $ServiceUserRepository->getAll();
+
+        $templateName = 'ServiceUsers\success';
+        $argsArray = [  'message' => $message,
+            'serviceUsers' => $serviceUsers];
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+
     }
 
     public function createAction()
@@ -175,8 +202,21 @@ class ServiceUserController
         $newServiceUser->setEirCode(filter_input(INPUT_POST, 'eirCode'));
         $newServiceUser->setMobileTelephone(filter_input(INPUT_POST, 'mobileTelephone'));
         $newServiceUser->setLandlineTelephone(filter_input(INPUT_POST, 'landlineTelephone'));
-        $newServiceUser->setManagingOffice(filter_input(INPUT_POST, 'managingOffice'));
+        $newServiceUser->setManagingOffice(filter_input(INPUT_POST, 'officeName'));
+        if(filter_input(INPUT_POST, 'startDate')=="")
+            $newServiceUser->setStartDate(NULL);
+        else
+            $newServiceUser->setStartDate(filter_input(INPUT_POST, 'startDate'));
 
+        if(filter_input(INPUT_POST, 'finishDate')=="")
+            $newServiceUser->setFinishDate(NULL);
+        else
+            $newServiceUser->setFinishDate(filter_input(INPUT_POST, 'finishDate'));
+
+        if (isset($_POST['isActive']))
+            $newServiceUser->setIsActive(1);
+        else
+            $newServiceUser->setIsActive(0);
         $newServiceUser->getId();
         $serviceUserRepo= new ServiceUserRepository();
         $success = $serviceUserRepo->create($newServiceUser);
@@ -189,7 +229,12 @@ class ServiceUserController
         }
         // route user to message page with success or failure notice
 
-        $argsArray = [  'message' => $message];
+        $ServiceUserRepository= new ServiceUserRepositoryView();
+        $serviceUsers= $ServiceUserRepository->getAll();
+
+        $templateName = 'ServiceUsers\success';
+        $argsArray = [  'message' => $message,
+            'serviceUsers' => $serviceUsers];
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
@@ -201,12 +246,15 @@ class ServiceUserController
         $RosterRepository = new RosterRepositoryView();
         $foreignKey="serviceuserid";
         $rosters= $RosterRepository->getAllForId($id,$foreignKey);
-        //var_dump($rosters);
-         //to do update to get one by id
-        // get array of attributes for that customer, ready for view to use to populate form
-        $argsArray = [
+        $doNotSendsRepository = new DoNotSendRepositoryView();
+        $doNotSends=$doNotSendsRepository->getAllForId($id,$foreignKey);
+        $assignedEmployeeRepository = new AssignedEmployeeRepositoryView();
+        $assignedEmployees=$assignedEmployeeRepository->getAllForId($id,$foreignKey);
+                $argsArray = [
             'serviceUser' => $serviceUser,
-            'rosters'=>$rosters
+            'rosters'=>$rosters,
+             'assignedEmployees'=>$assignedEmployees,
+             'doNotSends'=>$doNotSends
         ];
 
 
@@ -245,6 +293,7 @@ class ServiceUserController
 
 
 
+
     public function processDoNotSendAction()
     {
 
@@ -263,9 +312,55 @@ class ServiceUserController
         }
         // route user to message page with success or failure notice
 
-        $argsArray = [  'message' => $message];
+        $ServiceUserRepository= new ServiceUserRepositoryView();
+        $serviceUsers= $ServiceUserRepository->getAll();
+
+        $templateName = 'ServiceUsers\success';
+        $argsArray = [  'message' => $message,
+            'serviceUsers' => $serviceUsers];        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+    }
+
+    public function removeDoNotSendAction($id)
+    {
+           // get reference to our repository
+        $doNotSendRepo= new DoNotSendRepository();
+        $success = $doNotSendRepo->delete($id);
+        if($success){
+            $message = "SUCCESS - Do Not Send Designation deleted";
+        } else {
+            $message = 'sorry, there was a problem deleting that Do Not Send Designation ';
+        }
+        // route user to message page with success or failure notice
+        $ServiceUserRepository= new ServiceUserRepositoryView();
+        $serviceUsers= $ServiceUserRepository->getAll();
+
+        $templateName = 'ServiceUsers\success';
+        $argsArray = [  'message' => $message,
+            'serviceUsers' => $serviceUsers];
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
+
+
+
+    public function removeEmployeeAssignmentAction($id)
+    {
+        // get reference to our repository
+        $assignedEmployeesRepo= new AssignedEmployeeRepository();
+        $success = $assignedEmployeesRepo->delete($id);
+        if($success){
+            $message = "SUCCESS - Employee Assigment deleted";
+        } else {
+            $message = 'sorry, there was a problem deleting that Employee Assignment';
+        }
+        // route user to message page with success or failure notice
+        $ServiceUserRepository= new ServiceUserRepositoryView();
+        $serviceUsers= $ServiceUserRepository->getAll();
+
+        $templateName = 'ServiceUsers\success';
+        $argsArray = [  'message' => $message,
+            'serviceUsers' => $serviceUsers];
+        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+        }
 
 
 
@@ -307,7 +402,6 @@ class ServiceUserController
         $assignedEmployee->setEmployeeId(filter_input(INPUT_POST, 'employeeId'));
         $assignedEmployee->setServiceUserId(filter_input(INPUT_POST, 'serviceuser'));
         $assignedEmployee->getId();
-        var_dump($assignedEmployee);
         $assignedEmployeeRepo= new AssignedEmployeeRepository();
         $success = $assignedEmployeeRepo->create($assignedEmployee);
         $templateName = 'ServiceUsers\success';
@@ -318,8 +412,12 @@ class ServiceUserController
             $message = 'sorry, there was a problem, this employee has not assigned';
         }
         // route user to message page with success or failure notice
+        $ServiceUserRepository= new ServiceUserRepositoryView();
+        $serviceUsers= $ServiceUserRepository->getAll();
 
-        $argsArray = [  'message' => $message];
+        $templateName = 'ServiceUsers\success';
+        $argsArray = [  'message' => $message,
+        'serviceUsers' => $serviceUsers];
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 

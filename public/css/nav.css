@@ -63,8 +63,8 @@ img.block {
     flex: 1;
 }
 
-#topnav a {
-    display: block;
+#topnav ul li a {
+    display: flex;
     border: 0.5rem solid gainsboro;
     padding: 0.2rem;
     background: lightgrey;

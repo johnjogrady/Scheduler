@@ -4,18 +4,47 @@
 {% block pageTitle %}Edit Service User Details{% endblock %}
 {% block main %}
     <form action="" method="post">
-    <p>Service User Details</p>
 
+<table>
+        <tr>
+            <td>
+                <h4>Service User Details</h4>
+            </td>
+            <td>
+                <a href="../rosters/create/{{serviceUser.id}}">Add A Roster For this Service User</a>
+            </td>
+            <td>
+                <a href="../assignEmployee/{{serviceUser.id}}">Assign an Employee</a>
+            </td>
+            <td>
+                <a href="../addDoNotSend/{{serviceUser.id}}">Add an Employee as  Do Not Send</a>
+            </td>
+            <td>
+            <a href="../update/{{serviceUser.Id}}">Edit serviceUser</a>
+            </td>
+            <td>
+            <a href="/../delete/{{serviceUser.Id}}">Delete serviceUser</a>
+            </td>
+            <td>
+            <a href="/../serviceusers">Return to serviceUser list</a>
+            </td>
+
+        </tr>
+
+
+</table>
     <div class="column_container">
     <section class="flex">
     <table>
 
 
         <input type="hidden" name="Id" value="{{serviceUser.Id}}" >
-        
+        <th>
+            Service User Details
+        </th>
         <tr>
         <td>serviceUser Name:</td>
-        <td>{{serviceUser.firstName}}</td>
+        <td>{{serviceUser.firstName}} {{serviceUser.lastName}} </td>
     </tr>
     <tr>
         <td>Address Line 1:</td>
@@ -67,22 +96,44 @@
         </tr>
     </table>
     </section>
+        <table>
+            <th>Assigned Employees</th>
+            {% for assignedEmployee in assignedEmployees %}
+
+                <tr>
+                    <td>
+                        {{ assignedEmployee.staffNumber }}  {{ assignedEmployee.firstName}}  {{ assignedEmployee.lastName}}
+                    </td>
+                    <td>
+                        <a href="../removeassignment/{{assignedEmployee.id}}">Unmark as Assigned</a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+
+
+        <table>
+            <th>Do Not Send These Employees</th>
+            {% for doNotSend in doNotSends %}
+
+                <tr>
+                    <td>
+                        {{ doNotSend.staffNumber }}  {{ doNotSend.firstName}}  {{ doNotSend.lastName}}
+                    </td>
+                    <td>
+                        <a href="../donotsenddelete/{{doNotSend.id}}">Unmark as Do Not Send</a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        </section>
     </div>
-
-
-
+<section>
     <table>
-        <tr>
-            <td>
-            <a href="../rosters/create/{{serviceUser.id}}">Add A Roster For this Service User</a>
-            </td>
-            <td>
-                <a href="../assignEmployee/{{serviceUser.id}}">Assign an Employee</a>
-            </td>
-            <td>
-                <a href="../addDoNotSend/{{serviceUser.id}}">Add an Employee as  Do Not Send</a>
-            </td>
-        </tr>
+
             <tr>
                 <th></th>
 
@@ -114,11 +165,11 @@
         {% endfor %}
     </table>
     </section>
-    </div>
-    <br>
-    <a href="../update/{{serviceUser.Id}}">Edit serviceUser</a>
-    <a href="/../delete/{{serviceUser.Id}}">Delete serviceUser</a>
-    </br>
-    <a href="/../serviceUsers">Return to serviceUser list</a>
-    </form>
+        </div>
+        </form>
+
+
+
+
+
 {% endblock %}

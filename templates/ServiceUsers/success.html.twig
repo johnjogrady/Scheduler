@@ -1,3 +1,4 @@
+
 {% extends '/_base.html.twig' %}
 
 {% block pageTitle %}Success  page{% endblock %}
@@ -5,6 +6,41 @@
 {% block main %}
 
     <h1>{{ message }}</h1>
+    <table>
+        <tr>
+            <th></th>
 
+            <th>firstName</th>
+            <th>lastName</th>
+            <th>addressLine1</th>
+            <th>addressLine2</th>
+            <th>addressLine3</th>
+            <th>County/Postcode</th>
+            <th>officeName</th>
+            <th>mobileTelephone</th>
+            <th>landlineTelephone</th>
+        </tr>
+
+        <tr>
+            {% for serviceuser in serviceUsers %}
+
+            <td>
+                <a href="../show/{{serviceuser.id}}">View</a>
+                <a href="../update/{{serviceuser.id}}">Edit</a>
+                <a href="../delete/{{serviceuser.id}}">Delete</a>
+            </td>
+
+            <td>{{ serviceuser.firstName}}</td>
+            <td>{{ serviceuser.lastName}}</td>
+            <td>{{ serviceuser.addressLine1}}</td>
+            <td>{{ serviceuser.addressLine2}}</td>
+            <td>{{ serviceuser.addressLine3}}</td>
+            <td>{{ serviceuser.countyPostcodeName}}</td>
+            <td>{{ serviceuser.officeName}}</td>
+            <td>{{ serviceuser.mobileTelephone}}</td>
+            <td>{{ serviceuser.landlineTelephone}}</td>
+        </tr>
+        {% endfor %}
+    </table>
 
 {% endblock %}

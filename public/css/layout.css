@@ -12,8 +12,9 @@ tr.cast_sheet {
 
 th {
 	height: 30px;
+	font-size: 12px;
     color: #ffffff;
-    background-color: #e91802;
+    background-color: #0067b3;
 }
 tr {
     height: 30px;
@@ -31,9 +32,13 @@ h1.banner {
     color:darkgrey;
                     }
 
+div.column_container {
+	display: flex;
+}
 div.column_container section.flex {
     color:darkgrey;
     padding: 0.5rem;
+	display: inline-flex;
     margin-left:4px;
 	margin-top: 10px;
     border-style:solid;
@@ -45,7 +50,6 @@ div.column_container section.flex {
 
 section p, aside p
 	{
-	display: block;
 	margin: auto;
     font-size: 0.9rem;
 	padding:0;
