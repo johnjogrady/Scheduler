@@ -54,6 +54,10 @@
             <td>{{ serviceUser.startDate}}</td>
         </tr>
         <tr>
+            <td>Finish Date:</td>
+            <td>{{ serviceUser.finishDate}}</td>
+        </tr>
+        <tr>
             <td>Active serviceUser?</td>
             <td> {% if (serviceUser.isActive== true) %}
                 Active
@@ -68,8 +72,17 @@
 
 
     <table>
-        <td><input type="submit" value="Add A Roster For this Service User"></td>
-        {% for roster in rosters %}
+        <tr>
+            <td>
+            <a href="../rosters/create/{{serviceUser.id}}">Add A Roster For this Service User</a>
+            </td>
+            <td>
+                <a href="../assignEmployee/{{serviceUser.id}}">Assign an Employee</a>
+            </td>
+            <td>
+                <a href="../addDoNotSend/{{serviceUser.id}}">Add an Employee as  Do Not Send</a>
+            </td>
+        </tr>
             <tr>
                 <th></th>
 
@@ -82,6 +95,7 @@
             </tr>
 
             <tr>
+                {% for roster in rosters %}
 
                 <td>
                     <a href="../rosters/show/{{roster.id}}">View</a>

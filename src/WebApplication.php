@@ -116,11 +116,15 @@ $this->post('/serviceusers/create/', 'serviceuser.controller:processCreateAction
 $this->get('/serviceusers/show/{id}', 'serviceuser.controller:showAction');
 $this->get('/serviceusers/update/{id}', 'serviceuser.controller:updateAction');
 $this->post('/serviceusers/update/{id}', 'serviceuser.controller:processUpdateAction');
-
+$this->get('/serviceusers/addDoNotSend/{id}', 'serviceuser.controller:addDoNotSendAction');
+$this->post('/serviceusers/addDoNotSend/{id}', 'serviceuser.controller:processDoNotSendAction');
+$this->get('/serviceusers/assignEmployee/{id}', 'serviceuser.controller:assignEmployeeAction');
+$this->post('/serviceusers/assignEmployee/{id}', 'serviceuser.controller:processAssignEmployeeAction');
 
 $this->get('/serviceusers/delete/{id}', 'serviceuser.controller:deleteAction');
 $this->get('/serviceusers/rosters/show/{id}', 'roster.controller:showAction');
-$this->post('/serviceusers/show/{id}', 'roster.controller:createAction');
+$this->get('/serviceusers/rosters/create/{id}', 'roster.controller:createAction');
+$this->post('/serviceusers/rosters/create/{id}', 'roster.controller:processcreateAction');
 $this->get('/serviceusers/rosters/delete/{id}', 'roster.controller:deleteAction');
 $this->get('/serviceusers/rosters/update/{id}', 'roster.controller:updateAction');
 $this->post('/serviceusers/rosters/update/{id}', 'roster.controller:processUpdateAction');
@@ -132,7 +136,7 @@ $this->get('/rosters', 'roster.controller:listAction');
 $this->get('/rosters/create/', 'roster.controller:createAction');
 $this->get('/rosters/create/{id}', 'roster.controller:createAction');
 $this->get('/rosters/success/', 'roster.controller:successAction');
-$this->post('/rosters/create/', 'roster.controller:processCreateAction');
+$this->post('/rosters/create/{id}', 'roster.controller:processCreateAction');
 $this->get('/rosters/show/{id}', 'roster.controller:showAction');
 $this->get('/rosters/update/{id}', 'roster.controller:updateAction');
 $this->post('/rosters/update/{id}', 'roster.controller:processUpdateAction');

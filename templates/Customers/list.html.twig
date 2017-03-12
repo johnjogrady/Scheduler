@@ -8,7 +8,6 @@
     <h4><a href="customers/create">Add New Customer</a></h4>
 
     <table>
-        {% for customer in customers %}
             <tr>
                 <th></th>
                 <th>customerName</th>
@@ -22,6 +21,8 @@
             </tr>
 
             <tr>
+                {% for customer in customers %}
+
                 <td>
                     <a href="customers/show/{{customer.Id}}">View</a>
                     <a href="customers/update/{{customer.Id}}">Edit</a>

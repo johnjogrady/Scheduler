@@ -1,0 +1,37 @@
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}serviceusers list page{% endblock %}
+
+{% block main %}
+    <div class="column_container">
+
+
+    <h4>Add a Do Not Send Flag to Service User List  {{ serviceUser.firstName}} {{ serviceUser.lastName }}</h4>
+</div>
+         <div class="column_container">
+             <form action="" method="post">
+                 <input type="hidden" name="serviceuser" value="{{serviceUser.id}}" >
+
+<table>
+    <tr>
+        <td>
+            <label>Employee to be marked as DO NOT SEND</label>
+
+            <select name="employeeId">
+                 {% for employee in employees%}
+                     <option value="{{ employee.Id}}">
+                         {{ employee.firstName}} {{employee.lastName}} [{{ employee.Id }}]</option>
+                 {% endfor %}
+             </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <br>
+            <input type="submit">
+        </td>
+    </tr>
+</table>
+     </form>
+    </div>
+{% endblock %}

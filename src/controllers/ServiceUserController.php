@@ -8,12 +8,16 @@
 
 namespace Itb\Controller;
 
+use Itb\model\AssignedEmployee;
+use Itb\Model\AssignedEmployeeRepository;
+use Itb\Model\DoNotSend;
+use Itb\Model\DoNotSendRepository;
+use Itb\model\EmployeeRepository;
 use Itb\Model\ServiceUser;
 use Itb\model\ServiceUserRepository;
 use Itb\model\ServiceUserRepositoryView;
 use Itb\model\RosterRepositoryView;
 use Itb\Model\LookUpReferenceRepositoryCounties;
-
 use Itb\model\OfficeRepository;
 use Itb\WebApplication;
 
@@ -91,9 +95,11 @@ class ServiceUserController
         $editedServiceUser->setAddressLine1(filter_input(INPUT_POST, 'addressLine1'));
         $editedServiceUser->setAddressLine2(filter_input(INPUT_POST, 'addressLine2'));
         $editedServiceUser->setAddressLine3(filter_input(INPUT_POST, 'addressLine3'));
-
-        $editedServiceUser->setStartDate(filter_input(INPUT_POST, 'startDate'));
-       $editedServiceUser->setCountyPostcode(filter_input(INPUT_POST, 'countyPostcode'));
+        if (isset($_POST['startDate']))
+            $editedServiceUser->setIsActive(filter_input(INPUT_POST, 'startDate'));
+        if (isset($_POST['finishDate']))
+            $editedServiceUser->setIsActive(filter_input(INPUT_POST, 'finishDate'));
+        $editedServiceUser->setCountyPostcode(filter_input(INPUT_POST, 'countyPostcode'));
         $editedServiceUser->setEirCode(filter_input(INPUT_POST, 'eirCode'));
         $editedServiceUser->setMobileTelephone(filter_input(INPUT_POST, 'mobileTelephone'));
         $editedServiceUser->setLandlineTelephone(filter_input(INPUT_POST, 'landlineTelephone'));
@@ -102,7 +108,6 @@ class ServiceUserController
             $editedServiceUser->setIsActive(1);
         else
             $editedServiceUser->setIsActive(0);
-
         $ServiceUserRepo= new ServiceUserRepository();
         $success = $ServiceUserRepo->update($editedServiceUser);
         $templateName = 'ServiceUsers\success';
@@ -171,18 +176,14 @@ class ServiceUserController
         $newServiceUser->setMobileTelephone(filter_input(INPUT_POST, 'mobileTelephone'));
         $newServiceUser->setLandlineTelephone(filter_input(INPUT_POST, 'landlineTelephone'));
         $newServiceUser->setManagingOffice(filter_input(INPUT_POST, 'managingOffice'));
-        if (isset($_POST['isActive']))
-            $newServiceUser->setIsActive(1);
-        else
-            $newServiceUser->setIsActive(0);
 
         $newServiceUser->getId();
-        $customerRepo= new CustomerRepository();
-        $success = $customerRepo->create($newServiceUser);
+        $serviceUserRepo= new ServiceUserRepository();
+        $success = $serviceUserRepo->create($newServiceUser);
         $templateName = 'ServiceUsers\success';
         if($success){
             $id = $newServiceUser->getId(); // get ID of new record
-            $message = "SUCCESS - new customer with ID ='.$id.'created";
+            $message = "SUCCESS - new service user ".$newServiceUser->getFirstName()." ".$newServiceUser->getLastName()." has been created";
         } else {
             $message = 'sorry, there was a problem creating new customer';
         }
@@ -212,4 +213,114 @@ class ServiceUserController
         $templateName = 'ServiceUsers\show';
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
+
+    public function addDoNotSendAction($id)
+    {
+        // get reference to our repository
+        $ServiceUserRepository= new ServiceUserRepository();
+        $serviceUser= $ServiceUserRepository->getOneById($id);
+        $employees= new EmployeeRepository();
+        $employees=$employees->getAll();
+
+
+        if (null == $serviceUser) {
+            $message = 'sorry, no ServiceUser with id = ' . $id . ' could be retrieved from the database';
+            $templateName = 'message';
+
+            return $this->app['twig']->render($templateName . '.html.twig');
+        } else {
+            // route user to update page for product
+            // output the detail of product in HTML table
+            $templateName = 'ServiceUsers\addDoNotSend';
+            $argsArray = [
+                'id' => $id,
+                'serviceUser'=>$serviceUser,
+                'employees'=>$employees
+            ];
+
+            return $this->app['twig']->render($templateName . '.html.twig',$argsArray);
+        }
+
+    }
+
+
+
+    public function processDoNotSendAction()
+    {
+
+        $doNotSend= new DoNotSend();
+        $doNotSend->setEmployeeId(filter_input(INPUT_POST, 'employeeId'));
+        $doNotSend->setServiceUserId(filter_input(INPUT_POST, 'serviceuser'));
+        $doNotSend->getId();
+        $doNotSendRepo= new DoNotSendRepository();
+        $success = $doNotSendRepo->create($doNotSend);
+        $templateName = 'ServiceUsers\success';
+        if($success){
+            $id = $doNotSend->getId(); // get ID of new record
+            $message = "SUCCESS - this employee has been marked as DO NOT SEND ";
+        } else {
+            $message = 'sorry, there was a problem, this employee has NOT marked as DO NOT SEND';
+        }
+        // route user to message page with success or failure notice
+
+        $argsArray = [  'message' => $message];
+        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+    }
+
+
+
+    public function assignEmployeeAction($id)
+    {
+        // get reference to our repository
+        $ServiceUserRepository= new ServiceUserRepository();
+        $serviceUser= $ServiceUserRepository->getOneById($id);
+        $employees= new EmployeeRepository();
+        $employees=$employees->getAll();
+
+
+        if (null == $serviceUser) {
+            $message = 'sorry, no ServiceUser with id = ' . $id . ' could be retrieved from the database';
+            $templateName = 'message';
+
+            return $this->app['twig']->render($templateName . '.html.twig');
+        } else {
+            // route user to update page for product
+            // output the detail of product in HTML table
+            $templateName = 'ServiceUsers\assignEmployee';
+            $argsArray = [
+                'id' => $id,
+                'serviceUser'=>$serviceUser,
+                'employees'=>$employees
+            ];
+
+            return $this->app['twig']->render($templateName . '.html.twig',$argsArray);
+        }
+
+    }
+
+
+
+    public function processAssignEmployeeAction()
+    {
+
+        $assignedEmployee= new AssignedEmployee();
+        $assignedEmployee->setEmployeeId(filter_input(INPUT_POST, 'employeeId'));
+        $assignedEmployee->setServiceUserId(filter_input(INPUT_POST, 'serviceuser'));
+        $assignedEmployee->getId();
+        var_dump($assignedEmployee);
+        $assignedEmployeeRepo= new AssignedEmployeeRepository();
+        $success = $assignedEmployeeRepo->create($assignedEmployee);
+        $templateName = 'ServiceUsers\success';
+        if($success){
+            $id = $assignedEmployee->getId(); // get ID of new record
+            $message = "SUCCESS - this employee has been assigned";
+        } else {
+            $message = 'sorry, there was a problem, this employee has not assigned';
+        }
+        // route user to message page with success or failure notice
+
+        $argsArray = [  'message' => $message];
+        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+    }
+
 }

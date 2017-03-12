@@ -5,10 +5,9 @@
 {% block main %}
 
     <h1>rosterlist</h1>
-    <h4><a href="rosters/create">Add New roster</a></h4>
+    <h4><a href="rosters/create/2">Add New roster</a></h4>
 
     <table>
-        {% for roster in rosters %}
             <tr>
                 <th></th>
 
@@ -23,6 +22,7 @@
             </tr>
 
             <tr>
+                {% for roster in rosters %}
 
                 <td>
                     <a href="rosters/show/{{roster.id}}">View</a>

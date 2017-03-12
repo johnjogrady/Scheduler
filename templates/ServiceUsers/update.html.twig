@@ -114,10 +114,17 @@
                         <label>StartDate:</label>
                     </td>
                     <td>
-                        <input type="date" name="startDate" value="{{ serviceUser.startDate}}">
+                        <input type="text" class="datepicker" name="startDate" value="{{ serviceUser.startDate}}">
                     </td>
                 </tr>
-
+                <tr>
+                    <td>
+                        <label>Finish Date:</label>
+                    </td>
+                    <td>
+                        <input type="text" class="datepicker" name="finishDate" value="{{ serviceUser.finishDate}}">
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         <label>Is Active:</label>
@@ -130,10 +137,6 @@
                     </td>
                 </tr>
                 <tr>
-                <tr>
-                <tr>
-                        <tr>
-
                          <td></td>
                             <td><input type="submit"></td>
                         </tr>

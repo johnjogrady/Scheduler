@@ -140,16 +140,16 @@ class RosterController
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
-    public function createAction()
+    public function createAction($id)
     {
         // get reference to our repository
         $rosterStatus= new LookUpReferenceRepositoryRosterStatus();
         $rosterStatus= $rosterStatus->getAll();
+        var_dump($id);
 
         $customers= new CustomerRepository();
         $customers= $customers->getAll();
         $timesArray=$this->fillTimes();
-        $id=(filter_input(INPUT_POST, 'Id'));
         $serviceUsers = new serviceUserRepository();
         $serviceUsers= $serviceUsers->getAll();
 

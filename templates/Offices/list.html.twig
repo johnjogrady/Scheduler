@@ -8,7 +8,6 @@
     <h4><a href="offices/create">Add New office</a></h4>
 
     <table>
-        {% for office in offices %}
             <tr>
                 <th></th>
                 <th>officeName</th>
@@ -22,6 +21,8 @@
             </tr>
 
             <tr>
+                {% for office in offices %}
+
                 <td>
                     <a href="offices/show/{{office.Id}}">View</a>
                     <a href="offices/update/{{office.Id}}">Edit</a>

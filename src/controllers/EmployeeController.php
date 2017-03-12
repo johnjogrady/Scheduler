@@ -34,8 +34,8 @@ class EmployeeController
         $argsArray = [
             'employees' => $employees
         ];
-          $templateName = 'Employees\list';
-              return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+        $templateName = 'Employees\list';
+        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
     public function successAction()
@@ -53,14 +53,14 @@ class EmployeeController
         // database connection
         $counties= new LookUpReferenceRepositoryCounties();
 
-         $counties = $counties->getAll();
+        $counties = $counties->getAll();
 
         $offices= new OfficeRepository();
 
         $offices= $offices->getAll();
 
 
-         if (null == $employee) {
+        if (null == $employee) {
             $message = 'sorry, no Employee with id = ' . $id . ' could be retrieved from the database';
             $templateName = 'message';
 
@@ -153,7 +153,7 @@ class EmployeeController
             'counties' => $counties,
             'offices' => $offices
         ];
-           $templateName = 'Employees\create';
+        $templateName = 'Employees\create';
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
@@ -164,7 +164,7 @@ class EmployeeController
         $newEmployee= new Employee();
         $newEmployee->setFirstName(filter_input(INPUT_POST, 'firstName'));
         $newEmployee->setLastName(filter_input(INPUT_POST, 'lastName'));
-        $newEmployee->setStaffId(filter_input(INPUT_POST, 'staffID'));
+        $newEmployee->setStaffNumber(filter_input(INPUT_POST, 'staffNumber'));
         $newEmployee->setAddressLine1(filter_input(INPUT_POST, 'addressLine1'));
         $newEmployee->setAddressLine2(filter_input(INPUT_POST, 'addressLine2'));
         $newEmployee->setAddressLine3(filter_input(INPUT_POST, 'addressLine3'));
@@ -173,15 +173,14 @@ class EmployeeController
         $newEmployee->setMobileTelephone(filter_input(INPUT_POST, 'mobileTelephone'));
         $newEmployee->setLandlineTelephone(filter_input(INPUT_POST, 'landlineTelephone'));
         $newEmployee->setManagingOffice(filter_input(INPUT_POST, 'managingOffice'));
-        $newEmployee->setMainContact(filter_input(INPUT_POST, 'mainContact'));
         if (isset($_POST['isActive']))
             $newEmployee->setIsActive(1);
         else
             $newEmployee->setIsActive(0);
 
         $newEmployee->getId();
-        $customerRepo= new CustomerRepository();
-        $success = $customerRepo->create($newEmployee);
+        $employeeRepo= new EmployeeRepository();
+        $success = $employeeRepo->create($newEmployee);
         $templateName = 'Employees\success';
         if($success){
             $id = $newEmployee->getId(); // get ID of new record
@@ -200,7 +199,7 @@ class EmployeeController
         // get reference to our repository
         $employeeRepository = new EmployeeRepositoryView();
         $employee = $employeeRepository->getOneById($id);
-         //to do update to get one by id
+        //to do update to get one by id
         // get array of attributes for that customer, ready for view to use to populate form
         $argsArray = [
             'employee' => $employee

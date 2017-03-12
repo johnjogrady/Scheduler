@@ -142,23 +142,7 @@ class ServiceUser
     {
         $this->eirCode = $eirCode;
     }
-    private $latLonCoordinates;
 
-    /**
-     * @return mixed
-     */
-    public function getLatLonCoordinates()
-    {
-        return $this->latLonCoordinates;
-    }
-
-    /**
-     * @param mixed $latLonCoordinates
-     */
-    public function setLatLonCoordinates($latLonCoordinates)
-    {
-        $this->latLonCoordinates = $latLonCoordinates;
-    }
     private $landlineTelephone;
 
     /**

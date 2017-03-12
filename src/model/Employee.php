@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: john.ogrady
- * Date: 13/02/2017
- * Time: 22:45
- */
 
 namespace Itb\Model;
 
@@ -167,23 +161,7 @@ class Employee
     {
         $this->eirCode = $eirCode;
     }
-    private $latLonCoordinates;
 
-    /**
-     * @return mixed
-     */
-    public function getLatLonCoordinates()
-    {
-        return $this->latLonCoordinates;
-    }
-
-    /**
-     * @param mixed $latLonCoordinates
-     */
-    public function setLatLonCoordinates($latLonCoordinates)
-    {
-        $this->latLonCoordinates = $latLonCoordinates;
-    }
     private $landlineTelephone;
 
     /**

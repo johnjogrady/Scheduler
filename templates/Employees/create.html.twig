@@ -18,7 +18,7 @@
                         <label>Second Name:</label>
                     </td>
                     <td>
-                        <input type="text" name="secondName">
+                        <input type="text" name="lastName">
                     </td>
                 </tr>
                 <tr>
@@ -105,9 +105,9 @@
                     <td>
                         <select name="managingOffice">
 
-                        {% for office in offices %}
-                            <option value="{{ office.id}}">{{ office.officeName}} </option>
-                        {% endfor %}
+                            {% for office in offices %}
+                                <option value="{{ office.id}}">{{ office.officeName}} </option>
+                            {% endfor %}
                         </select>
                     </td>
                 </tr>
