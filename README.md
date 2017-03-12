@@ -61,3 +61,11 @@ Resolved issue with bug on create of Employee and Service User records
 			Added ability to assign an employee to a service user
 			Added ability to mark an employee as DO NOT SEND to a service user
 			to do methods to unassign or unmark as DONOTSEND
+			
+## Sun 12th March 2017 V1.5
+
+Added ability to unassign or unmark as assigned employee, or DO NOT SEND
+Tidied up show employee and show service user page
+Experimented with modal view on employee
+Added ability to create, update and delete employee availability
+to do- issue with delete of employee unavailability- is deleting ok from db, but throwing error
