@@ -53,3 +53,11 @@ V1.4
 Tided up CSS
 Added ability to add a roster from a service user record and wired drop down on roster record to correct service user
 Tidied up Employee isactive CRUD and form values
+
+## Sat 11th March 2017
+Resolved issue with bug on create of Employee and Service User records
+			Removed LongLat point coordinates object from above entities for now
+			Added ability to create a roster from a service user screen
+			Added ability to assign an employee to a service user
+			Added ability to mark an employee as DO NOT SEND to a service user
+			to do methods to unassign or unmark as DONOTSEND
