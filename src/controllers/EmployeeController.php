@@ -258,19 +258,19 @@ class EmployeeController
         $unavailableTime->setUnavailabilityReason(filter_input(INPUT_POST, 'unavailableReason'));
         $dayofWeek=filter_input(INPUT_POST, 'dayOfWeek');
         if ($dayofWeek=="Sunday")
-            $unavailableTime->setDayOfWeek(1);
+            $unavailableTime->setDayOfWeek(0);
         else if ($dayofWeek=="Monday")
-            $unavailableTime->setDayOfWeek(2);
+            $unavailableTime->setDayOfWeek(1);
         else if ($dayofWeek=="Tuesday")
-            $unavailableTime->setDayOfWeek(3);
+            $unavailableTime->setDayOfWeek(2);
         else if ($dayofWeek=="Wednesday")
-            $unavailableTime->setDayOfWeek(4);
+            $unavailableTime->setDayOfWeek(3);
         else if ($dayofWeek=="Thursday")
-            $unavailableTime->setDayOfWeek(5);
+            $unavailableTime->setDayOfWeek(4);
         else if ($dayofWeek=="Friday")
-            $unavailableTime->setDayOfWeek(6);
+            $unavailableTime->setDayOfWeek(5);
         else if ($dayofWeek=="Saturday")
-            $unavailableTime->setDayOfWeek(7);
+            $unavailableTime->setDayOfWeek(6);
 
         $unavailableTime->getId();
 
