@@ -66,6 +66,8 @@
     </table>
     </section>
         <section>
+            <a href="../availabilitycreate/{{ employee.Id }}">Create New Unavailability</a>
+
             <h2>Unavailable Times for this employee</h2>
             <table>
 
@@ -80,13 +82,10 @@
                 </tr>
 
                 <tr>
-                    <a href="../availabilitycreate/{{ employee.Id }}">Create New Unavailability</a>
 
                     {% for unavailableTime in unavailableTimes%}
 
                     <td>
-
-                        <a href="../rosters/show/{{unavailableTime.id}}">View</a>
 
                         <a href="../availabilityupdate/{{unavailableTime.id}}">Edit</a>
                         <a href="../availabilitydelete/{{unavailableTime.id}}">Delete</a>
@@ -97,6 +96,44 @@
                     <td>{{ unavailableTime.startTime}}</td>
                     <td>{{ unavailableTime.endTime}}</td>
                     <td>{{ unavailableTime.reason}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
+
+        <section>
+            <h2>PLanned Absences for this employee</h2>
+            <table>
+
+                <tr>
+                    <th></th>
+
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Reason</th>
+                    <th>Approval Status</th>
+                    <th>Approved By</th>
+
+                </tr>
+
+                <tr>
+                    <a href="../absencecreate/{{ employee.Id }}">Create New Absence</a>
+
+                    {% for absence in absences%}
+
+                    <td>
+
+
+                        <a href="../absenceupdate/{{absence.id}}">Edit</a>
+                        <a href="../absencedelete/{{absence.id}}">Delete</a>
+                    </td>
+
+
+                    <td>{{ absence.startTime}}</td>
+                    <td>{{ absence.endTime}}</td>
+                    <td>{{ absence.absenceReason}}</td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 {% endfor %}
             </table>

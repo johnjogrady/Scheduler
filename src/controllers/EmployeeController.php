@@ -9,11 +9,15 @@
 namespace Itb\Controller;
 
 use Itb\Model\Employee;
+use Itb\model\EmployeeAbsence;
+use Itb\model\EmployeeAbsenceRepository;
+use Itb\model\EmployeeAbsenceRepositoryView;
 use Itb\model\EmployeeRepository;
 use Itb\model\EmployeeRepositoryView;
 use Itb\model\EmployeeUnavailabilityTime;
 use Itb\model\EmployeeUnavailableTimeRepository;
 use Itb\model\EmployeeUnavailableTimeRepositoryView;
+use Itb\Model\LookUpReferenceRepositoryAbsenceReasons;
 use Itb\Model\LookUpReferenceRepositoryUnavailableReasons;
 use Itb\Model\LookUpReferenceRepositoryCounties;
 
@@ -211,11 +215,18 @@ class EmployeeController
         $unavailableReasons= new LookUpReferenceRepositoryUnavailableReasons();
         $unavailableReasons= $unavailableReasons->getAll();
 
+        $absenceRepo= new EmployeeAbsenceRepository();
+        $absences= $absenceRepo->getAllForId($id,$foreignKey);
+        $absenceReasons= new LookUpReferenceRepositoryAbsenceReasons();
+        $absenceReasons= $absenceReasons->getAll();
+
         //to do update to get one by id
         // get array of attributes for that customer, ready for view to use to populate form
         $argsArray = [
             'employee' => $employee,
-            'unavailableTimes' => $unavailableTimes
+            'unavailableTimes' => $unavailableTimes,
+            'absences'=>$absences,
+            'absenceReasons'=>$absenceReasons
         ];
 
 
@@ -364,7 +375,7 @@ class EmployeeController
             $message = 'sorry, there was a problem deleting that unavailability record';
         }
         // route user to message page with success or failure notice
-        $templateName = 'Employee\success';
+        $templateName = 'Employees\success';
         $argsArray = [  'message' => $message];
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
@@ -391,4 +402,112 @@ class EmployeeController
 
         return $arrayOfDays;
     }
+
+
+
+
+    public function absenceCreateAction($id)
+    {
+        // get reference to our repository
+        $employeeRepository = new EmployeeRepositoryView();
+        $employeeAbsenceRepo= new EmployeeAbsenceRepository();
+        $employee = $employeeRepository->getOneById($id);
+        $absenceReasons= new LookUpReferenceRepositoryAbsenceReasons();
+        $absenceReasons= $absenceReasons->getAll();
+        $templateName = 'Employees\AbsenceCreate';
+        $argsArray = [
+            'absenceReasons' =>$absenceReasons,
+            'id'=>$id];
+
+        return $this->app['twig']->render($templateName . '.html.twig',$argsArray);
+    }
+
+
+    public function processAbsenceCreateAction()
+    {
+        // get reference to our repository
+        $absence= new EmployeeAbsence();
+        $absence->setEndTime(filter_input(INPUT_POST, 'endTime'));
+        $absence->setStartTime(filter_input(INPUT_POST, 'startTime'));
+        $absence->setEmployeeId(filter_input(INPUT_POST, 'employeeId'));
+        $absence->setId(filter_input(INPUT_POST, 'Id'));
+        $absence->setAbsenceReason(filter_input(INPUT_POST, 'absenceReason'));
+        $absence->getId();
+
+
+        $absenceRepo= new EmployeeAbsenceRepository();
+        $success = $absenceRepo->create($absence);
+        $templateName = 'Employees\success';
+        if($success){
+            $message = "SUCCESS - Employee Absence Time updated";
+        } else {
+            $message = 'sorry, there was a problem updating Employee Absence ';
+        }
+        // route user to message page with success or failure notice
+
+        $argsArray = [  'message' => $message];
+        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+    }
+
+    public function absenceUpdateAction($id)
+    {
+        // get reference to our repository
+        $absenceRepo= new EmployeeAbsenceRepository();
+        $absence= $absenceRepo->getOneById($id);
+
+        $absenceReasons= new LookUpReferenceRepositoryAbsenceReasons();
+        $absenceReasons= $absenceReasons->getAll();
+        $templateName = 'Employees\AbsenceUpdate';
+        $argsArray = [
+            'absence' => $absence,
+            'absenceReasons' =>$absenceReasons];
+
+var_dump($argsArray);
+        return $this->app['twig']->render($templateName . '.html.twig',$argsArray);
+    }
+
+
+
+    public function processAbsenceUpdateAction()
+    {
+        // get reference to our repository
+        $absence= new EmployeeAbsence();
+        $absence->setEndTime(filter_input(INPUT_POST, 'endTime'));
+        $absence->setStartTime(filter_input(INPUT_POST, 'startTime'));
+        $absence->setEmployeeId(filter_input(INPUT_POST, 'employeeId'));
+        $absence->setId(filter_input(INPUT_POST, 'Id'));
+
+        $absence->setAbsenceReason(filter_input(INPUT_POST, 'absenceReason'));
+        $absence->getId();
+
+
+        $absenceRepo= new EmployeeAbsenceRepository();
+        $success = $absenceRepo->update($absence);
+        $templateName = 'Employees\success';
+        if($success){
+            $message = "SUCCESS - Employee Absence updated";
+        } else {
+            $message = 'sorry, there was a problem updating Employee Absence';
+        }
+        // route user to message page with success or failure notice
+
+        $argsArray = [  'message' => $message];
+        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+    }
+    public function absenceDeleteAction($id)
+    {
+        // get reference to our repository
+        $absenceRepo= new EmployeeAbsenceRepository();
+        $success = $absenceRepo->delete($id);
+        if($success){
+            $message = 'SUCCESS - absence record deleted';
+        } else {
+            $message = 'sorry, there was a problem deleting that absence record';
+        }
+        // route user to message page with success or failure notice
+        $templateName = 'Employees\success';
+        $argsArray = [  'message' => $message];
+        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+    }
+
 }

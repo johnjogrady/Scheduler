@@ -1,0 +1,55 @@
+
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}Add Employee Absence{% endblock %}
+{% block main %}
+
+    <h1>Add Employee Absence</h1>
+    <div class="column_container">
+        <form action="" method="post">
+            <table>
+                     <input type="hidden" name="employeeId" value="{{id}}" >
+                <tr>
+
+                    </tr>
+                <tr>
+                    <td>
+                        <label>Start Date:</label>
+                    <td>
+                        <input type="text" name="startTime"  class="datepicker">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>EndDate:</label>
+                    <td>
+                        <input type="text" name="endTime"  class="datepicker">
+                    </td>
+
+                </tr>
+                <tr>
+                    <tr>
+                    <td>
+                        <label>Reason for Absence:</label>
+
+                    </td>
+                        <td>
+                    <select name="absenceReason" >
+                        {% for absenceReason in absenceReasons%}
+                            <option value="{{ absenceReason.refID}}">
+
+                                {{ absenceReason.refValue}}</option>
+                        {% endfor %}
+                    </select>
+                        </td>
+                </tr>
+                <tr>
+                <tr>
+                    <td></td>
+                <td><input type="submit"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+{% endblock %}

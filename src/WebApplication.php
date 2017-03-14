@@ -95,6 +95,11 @@ $this->post('/employees/availabilityupdate/{id}', 'employee.controller:processAv
 $this->get('/employees/availabilitycreate/{id}', 'employee.controller:availabilityCreateAction');
 $this->post('/employees/availabilitycreate/{id}', 'employee.controller:processAvailabilityCreateAction');
 $this->get('/employees/availabilitydelete/{id}', 'employee.controller:availabilityDeleteAction');
+$this->get('/employees/absencecreate/{id}', 'employee.controller:absenceCreateAction');
+$this->post('/employees/absencecreate/{id}', 'employee.controller:processAbsenceCreateAction');
+$this->get('/employees/absencedelete/{id}', 'employee.controller:absenceDeleteAction');
+$this->get('/employees/absenceupdate/{id}', 'employee.controller:absenceUpdateAction');
+$this->post('/employees/absenceupdate/{id}', 'employee.controller:processAbsenceUpdateAction');
     //==============================
     // These are the office controller routes and related Controller action methods
     //==

@@ -14,6 +14,14 @@ class EmployeeAbsence
     private $id;
 
     /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -88,6 +96,25 @@ class EmployeeAbsence
     {
         $this->absenceReason = $absenceReason;
     }
+
+    private $employeeId;
+
+    /**
+     * @return mixed
+     */
+    public function getEmployeeId()
+    {
+        return $this->employeeId;
+    }
+
+    /**
+     * @param mixed $employeeId
+     */
+    public function setEmployeeId($employeeId)
+    {
+        $this->employeeId = $employeeId;
+    }
+
     private $approvedBy;
 
     /**

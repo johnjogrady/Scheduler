@@ -69,3 +69,11 @@ Tidied up show employee and show service user page
 Experimented with modal view on employee
 Added ability to create, update and delete employee availability
 to do- issue with delete of employee unavailability- is deleting ok from db, but throwing error
+
+## Mon 13th 12th March 2017 V1.6
+
+resolved delete issue on employee unavailability
+
+added employee absence create- update and delete
+issue with start and end time in update
+added absences to show method for employees
