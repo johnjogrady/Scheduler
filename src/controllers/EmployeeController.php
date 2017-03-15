@@ -215,7 +215,7 @@ class EmployeeController
         $unavailableReasons= new LookUpReferenceRepositoryUnavailableReasons();
         $unavailableReasons= $unavailableReasons->getAll();
 
-        $absenceRepo= new EmployeeAbsenceRepository();
+        $absenceRepo= new EmployeeAbsenceRepositoryView();
         $absences= $absenceRepo->getAllForId($id,$foreignKey);
         $absenceReasons= new LookUpReferenceRepositoryAbsenceReasons();
         $absenceReasons= $absenceReasons->getAll();
@@ -419,6 +419,7 @@ class EmployeeController
             'absenceReasons' =>$absenceReasons,
             'id'=>$id];
 
+        var_dump($argsArray);
         return $this->app['twig']->render($templateName . '.html.twig',$argsArray);
     }
 
@@ -449,6 +450,8 @@ class EmployeeController
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
+
+
     public function absenceUpdateAction($id)
     {
         // get reference to our repository
@@ -462,11 +465,11 @@ class EmployeeController
             'absence' => $absence,
             'absenceReasons' =>$absenceReasons];
 
-var_dump($argsArray);
         return $this->app['twig']->render($templateName . '.html.twig',$argsArray);
     }
 
 
+    // TO DO RESOLVE ISSUE WHERE THIS METHOD IS NOT SAVING CHANGES CORRECTLY, HIDDEN FROM UI FOR NOW
 
     public function processAbsenceUpdateAction()
     {
@@ -480,9 +483,10 @@ var_dump($argsArray);
         $absence->setAbsenceReason(filter_input(INPUT_POST, 'absenceReason'));
         $absence->getId();
 
-
         $absenceRepo= new EmployeeAbsenceRepository();
+
         $success = $absenceRepo->update($absence);
+
         $templateName = 'Employees\success';
         if($success){
             $message = "SUCCESS - Employee Absence updated";
@@ -494,7 +498,8 @@ var_dump($argsArray);
         $argsArray = [  'message' => $message];
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
-    public function absenceDeleteAction($id)
+
+   public function absenceDeleteAction($id)
     {
         // get reference to our repository
         $absenceRepo= new EmployeeAbsenceRepository();

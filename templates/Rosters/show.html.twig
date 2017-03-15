@@ -42,6 +42,17 @@
             <td>{{ roster.roster_status}}</td>
         </tr>
     </table>
+    <table>
+    {% for assignedemployee in assignedemployees%}
+
+        <td>
+        <td>{{assignedemployee.employeeId}}</td>
+            <a href="serviceusers/delete/{{assignedemployee.id}}">Remove</a>
+        </td>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
     <a href="../update/{{roster.Id}}">Edit Roster</a>
     <a href="../update/{{roster.Id}}">Delete Roster</a>
     <a href="/../rosters">Return to Roster list</a>

@@ -137,7 +137,8 @@ $this->post('/serviceusers/rosters/create/{id}', 'roster.controller:processcreat
 $this->get('/serviceusers/rosters/delete/{id}', 'roster.controller:deleteAction');
 $this->get('/serviceusers/rosters/update/{id}', 'roster.controller:updateAction');
 $this->post('/serviceusers/rosters/update/{id}', 'roster.controller:processUpdateAction');
-
+$this->get('/serviceusers/rosters/assignemployee/{id}', 'roster.controller:assignEmployeeToRosterAction');
+$this->post('/serviceusers/rosters/assignemployee/{id}', 'roster.controller:processAssignEmployeeToRosterAction');
         //==============================
         //// These are the rostercontroller routes and related Controller action methods
         //==
@@ -150,7 +151,8 @@ $this->get('/rosters/show/{id}', 'roster.controller:showAction');
 $this->get('/rosters/update/{id}', 'roster.controller:updateAction');
 $this->post('/rosters/update/{id}', 'roster.controller:processUpdateAction');
 $this->get('/rosters/delete/{id}', 'roster.controller:deleteAction');
-
+$this->get('rosters/assignemployeetoroster/{id}', 'roster.controller:assignEmployeeToRosterAction');
+$this->post('rosters/assignemployeetoroster/{id}', 'roster.controller:processAssignEmployeeToRosterAction');
 
     }
 

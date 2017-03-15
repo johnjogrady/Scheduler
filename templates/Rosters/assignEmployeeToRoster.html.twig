@@ -1,0 +1,73 @@
+{% extends '/_base.html.twig' %}
+
+{% block pageTitle %}serviceusers list page{% endblock %}
+
+{% block main %}
+    <div class="column_container">
+
+
+    <h4>Assign Employee to this roster </h4>
+</div>
+         <div class="column_container">
+             <form action="" method="post">
+                 <input type="hidden" name="rosterId" value="{{roster.id}}" >
+                 <table>
+
+                 <td>serviceUser Name:</td>
+                 <td>{{roster.sufirstname}} {{ roster.sulastname}}</td>
+                 </tr>
+                 <tr>
+                     <td>Day </td>
+                     <td>{{roster.day}}</td>
+                 </tr>
+                 <tr>
+                     <td>Date</td>
+                     <td>{{roster.rosterStartTime}}</td>
+                 </tr>
+                 <tr>
+                     <td>Start Time</td>
+                     <td>{{roster.starttime}}</td>
+                 </tr>
+                 <tr>
+                     <td>End Time</td>
+                     <td>{{roster.endtime}}</td>
+                 </tr>
+                 <tr>
+                     <td>Duration</td>
+                     <td>{{roster.duration}} hours</td>
+                 </tr>
+                 <tr>
+                     <td>Customer Name</td>
+                     <td>{{ roster.customername}}</td>
+                 </tr>
+                 <tr>
+                     <td>Status</td>
+                     <td>{{ roster.roster_status}}</td>
+                 </tr>
+
+
+    <tr>
+        <td>
+            <label>Employee to be Assigned</label>
+
+        </td>
+        <td>
+
+            <select name="employeeId">
+                 {% for employee in employees%}
+                     <option value="{{ employee.Id}}">
+                         {{ employee.firstName}} {{employee.lastName}} [{{ employee.Id }}]</option>
+                 {% endfor %}
+             </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <br>
+            <input type="submit">
+        </td>
+    </tr>
+</table>
+     </form>
+    </div>
+{% endblock %}

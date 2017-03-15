@@ -9,16 +9,18 @@
 namespace Itb\Controller;
 
 use Itb\Model\Roster;
+use Itb\model\RosterAssignedEmployee;
+use Itb\model\RosterAssignedEmployeeRepository;
 use Itb\Model\RosterRepository;
 use Itb\Model\RosterRepositoryView;
 use Itb\Model\LookUpReferenceRepositoryCounties;
 use Itb\Model\LookUpReferenceRepositoryRosterStatus;
 use Itb\Model\ServiceUser;
 use Itb\Model\ServiceUserRepository;
+use Itb\Model\EmployeeRepository;
 use Itb\Model\OfficeRepository;
 use Itb\Model\CustomerRepository;
 use Itb\WebApplication;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class RosterController
 {
@@ -199,16 +201,76 @@ class RosterController
         // get reference to our repository
         $rosterRepository = new rosterRepositoryView();
         $roster = $rosterRepository->getOneById($id);
+        $assignedEmployees =new RosterAssignedEmployeeRepository();
+        $foreignKey="rosterId";
+        //to do figure out why this object is empty!
+        $assignedEmployees->getAllForId($id,$foreignKey);
+
          //to do update to get one by id
         // get array of attributes for that roster, ready for view to use to populate form
         $argsArray = [
-            'roster' => $roster
+            'roster' => $roster,
+            'assignedemployees'=>$assignedEmployees
         ];
+        var_dump($argsArray);
 
 
         $templateName = 'rosters\show';
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
+
+
+    public function assignEmployeeToRosterAction($id)
+    {
+        $rosterRepo= new RosterRepositoryView();
+        $roster= $rosterRepo->getOneById($id);
+        $employees= new EmployeeRepository();
+        $employees=$employees->getAll();
+
+
+        if (null == $roster) {
+            $message = 'sorry, no ServiceUser with id = ' . $id . ' could be retrieved from the database';
+            $templateName = 'message';
+
+            return $this->app['twig']->render($templateName . '.html.twig');
+        } else {
+            // route user to update page for product
+            // output the detail of product in HTML table
+            $templateName = 'Rosters\assignEmployeeToRoster';
+            $argsArray = [
+                'roster'=>$roster,
+                'employees'=>$employees
+            ];
+
+            return $this->app['twig']->render($templateName . '.html.twig',$argsArray);
+        }
+
+    }
+
+
+    public function processAssignEmployeeToRosterAction()
+    {
+        // get reference to our repository
+        $newrosterassignment= new RosterAssignedEmployee();
+        $newrosterassignment->setEmployeeId(filter_input(INPUT_POST, 'employeeId'));
+        $newrosterassignment->setRosterId(filter_input(INPUT_POST, 'rosterId'));
+        var_dump($newrosterassignment);
+
+        $rosterRepo= new RosterAssignedEmployeeRepository();
+        $success = $rosterRepo->create($newrosterassignment);
+        $templateName = 'rosters\success';
+        if($success){
+            $id = $newrosterassignment->getId(); // get ID of new record
+            $message = "SUCCESS - this employee has been assigned to this roster created";
+        } else {
+            $message = 'sorry, there was a problem assigning this employee to this roster ';
+        }
+        // route user to message page with success or failure notice
+
+        $argsArray = [  'message' => $message];
+        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+    }
+
 // utility function to create an array of times in 15 min intervals for dropdowns
     public function fillTimes() {
         $arrayOfTimes= [];

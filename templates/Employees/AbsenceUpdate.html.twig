@@ -16,14 +16,14 @@
                     <td>
                         <label>Start Date:</label>
                     <td>
-                        <input type="text" name="startTime"  class="datepicker" value="{{ absence.startTime }}">
+                        <input type="date" name="startTime"  value="">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label>EndDate:</label>
                     <td>
-                        <input type="text" name="endTime"  class="datepicker" value="{{ absence.endTime }}">
+                        <input type="text" name="endTime"  class="datepicker" value="{{ absence.endTime|date("Y-m-d") }}">
                     </td>
 
                 </tr>

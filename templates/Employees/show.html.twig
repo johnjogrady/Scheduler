@@ -66,7 +66,7 @@
     </table>
     </section>
         <section>
-            <a href="../availabilitycreate/{{ employee.Id }}">Create New Unavailability</a>
+            <a href="../availabilitycreate/{{ employee.Id }}">Add Unavailable Time</a>
 
             <h2>Unavailable Times for this employee</h2>
             <table>
@@ -87,7 +87,8 @@
 
                     <td>
 
-                        <a href="../availabilityupdate/{{unavailableTime.id}}">Edit</a>
+                        {#<a href="../availabilityupdate/{{unavailableTime.id}}">Edit</a>#}
+
                         <a href="../availabilitydelete/{{unavailableTime.id}}">Delete</a>
                     </td>
 
@@ -102,6 +103,8 @@
         </section>
 
         <section>
+            <a href="../absencecreate/{{ employee.Id }}">Add Absence</a>
+
             <h2>PLanned Absences for this employee</h2>
             <table>
 
@@ -117,21 +120,21 @@
                 </tr>
 
                 <tr>
-                    <a href="../absencecreate/{{ employee.Id }}">Create New Absence</a>
 
                     {% for absence in absences%}
 
                     <td>
 
 
-                        <a href="../absenceupdate/{{absence.id}}">Edit</a>
+                {#        <a href="../absenceupdate/{{absence.id}}">Edit</a>#}
                         <a href="../absencedelete/{{absence.id}}">Delete</a>
+
                     </td>
 
 
-                    <td>{{ absence.startTime}}</td>
-                    <td>{{ absence.endTime}}</td>
-                    <td>{{ absence.absenceReason}}</td>
+                    <td>{{ absence.startTime|date("d/m/Y")}}</td>
+                    <td>{{ absence.endTime|date("d/m/Y")}}</td>
+                    <td>{{ absence.reason}}</td>
                     <td></td>
                     <td></td>
                 </tr>

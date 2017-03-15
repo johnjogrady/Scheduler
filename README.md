@@ -77,3 +77,9 @@ resolved delete issue on employee unavailability
 added employee absence create- update and delete
 issue with start and end time in update
 added absences to show method for employees
+
+## Tue 14th March 2017 V1.7
+
+added employee assignment to roster- saving ok to database
+to do resolve issue with showing assigned employees on roster show
+delete method for employee assignment
