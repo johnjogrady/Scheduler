@@ -83,3 +83,10 @@ added absences to show method for employees
 added employee assignment to roster- saving ok to database
 to do resolve issue with showing assigned employees on roster show
 delete method for employee assignment
+
+## Wed 15th March 2017 v1.8
+V1.8
+added full employee details to roster show view and remove href
+added delete method for employee assignment
+resolved some issues with office create and employee test from UI based testing
+added SQL database create scripts
