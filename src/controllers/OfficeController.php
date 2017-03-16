@@ -47,19 +47,17 @@ class OfficeController
     {
         // get reference to our repository
         $officeRepository = new officeRepository();
-        // get array of product attributes for that product, ready for view to use to populate form
+        // get array of office attributes for that product, ready for view to use to populate form
         $office = $officeRepository->getOneById($id);
         // database connection
         $counties= new LookUpReferenceRepositoryCounties();
 
         $counties = $counties->getAll();
 
-        $offices= new OfficeRepository();
 
-        $offices= $offices->getAll();
 
          if (null == $office) {
-            $message = 'sorry, no product with id = ' . $id . ' could be retrieved from the database';
+            $message = 'sorry, no office with id = ' . $id . ' could be retrieved from the database';
             $templateName = 'message';
 
             return $this->app['twig']->render($templateName . '.html.twig');
@@ -70,8 +68,7 @@ class OfficeController
             $templateName = 'offices\update';
             $argsArray = [
                 'office' => $office,
-                'counties' => $counties,
-                'offices' => $offices
+                'counties' => $counties
             ];
 
             return $this->app['twig']->render($templateName . '.html.twig',$argsArray);
@@ -97,7 +94,7 @@ class OfficeController
         $templateName = 'offices\success';
         if($success){
             $id = $editedoffice->getId(); // get ID of new record
-            $message = "SUCCESS - new office with ID = $id update";
+            $message = "SUCCESS - new office with ID. ".$id ." updated";
         } else {
             $message = 'sorry, there was a problem updating that office';
         }

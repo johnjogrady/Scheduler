@@ -11,6 +11,7 @@ namespace Itb\Controller;
 use Itb\Model\Roster;
 use Itb\model\RosterAssignedEmployee;
 use Itb\model\RosterAssignedEmployeeRepository;
+use Itb\model\RosterAssignedEmployeeRepositoryView;
 use Itb\Model\RosterRepository;
 use Itb\Model\RosterRepositoryView;
 use Itb\Model\LookUpReferenceRepositoryCounties;
@@ -180,7 +181,7 @@ class RosterController
         $newroster->setServiceUserId(filter_input(INPUT_POST, 'serviceUser'));
         $newroster->setcustomerId(filter_input(INPUT_POST, 'customer'));
         $newroster->getId();
-        var_dump($newroster);
+        //var_dump($newroster);
         $rosterRepo= new rosterRepository();
         $success = $rosterRepo->create($newroster);
         $templateName = 'rosters\success';
@@ -201,25 +202,36 @@ class RosterController
         // get reference to our repository
         $rosterRepository = new rosterRepositoryView();
         $roster = $rosterRepository->getOneById($id);
-        $assignedEmployees =new RosterAssignedEmployeeRepository();
+        $assignedEmployees =new RosterAssignedEmployeeRepositoryView();
         $foreignKey="rosterId";
-        //to do figure out why this object is empty!
-        $assignedEmployees->getAllForId($id,$foreignKey);
-
+        $assignedEmployees=$assignedEmployees->getAllForId($id,$foreignKey);
          //to do update to get one by id
         // get array of attributes for that roster, ready for view to use to populate form
         $argsArray = [
             'roster' => $roster,
-            'assignedemployees'=>$assignedEmployees
+            'assignedEmployees'=>$assignedEmployees
         ];
-        var_dump($argsArray);
 
 
         $templateName = 'rosters\show';
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
-
+    public function removeEmployeeFromRosterAction($id)
+    {
+        // get reference to our repository
+        $rosterAssignedEmployeeRepository = new RosterAssignedEmployeeRepository();
+        $success = $rosterAssignedEmployeeRepository->delete($id);
+        if($success){
+            $message = "SUCCESS - employee has been removed from that roster: ". $id;
+        } else {
+            $message = 'sorry, there was a problem deleting that employee from the roster';
+        }
+        // route user to message page with success or failure notice
+        $templateName = 'rosters\success';
+        $argsArray = [  'message' => $message];
+        return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
+    }
     public function assignEmployeeToRosterAction($id)
     {
         $rosterRepo= new RosterRepositoryView();
@@ -251,17 +263,16 @@ class RosterController
     public function processAssignEmployeeToRosterAction()
     {
         // get reference to our repository
-        $newrosterassignment= new RosterAssignedEmployee();
-        $newrosterassignment->setEmployeeId(filter_input(INPUT_POST, 'employeeId'));
-        $newrosterassignment->setRosterId(filter_input(INPUT_POST, 'rosterId'));
-        var_dump($newrosterassignment);
+        $newrosterAssignment= new RosterAssignedEmployee();
+        $newrosterAssignment->setEmployeeId(filter_input(INPUT_POST, 'employeeId'));
+        $newrosterAssignment->setRosterId(filter_input(INPUT_POST, 'rosterId'));
 
         $rosterRepo= new RosterAssignedEmployeeRepository();
-        $success = $rosterRepo->create($newrosterassignment);
+        $success = $rosterRepo->create($newrosterAssignment);
         $templateName = 'rosters\success';
         if($success){
-            $id = $newrosterassignment->getId(); // get ID of new record
-            $message = "SUCCESS - this employee has been assigned to this roster created";
+            $id = $newrosterAssignment->getId(); // get ID of new record
+            $message = "SUCCESS - this employee has been assigned to this roster ";
         } else {
             $message = 'sorry, there was a problem assigning this employee to this roster ';
         }

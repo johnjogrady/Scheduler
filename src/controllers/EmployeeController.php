@@ -162,7 +162,7 @@ class EmployeeController
             'counties' => $counties,
             'offices' => $offices
         ];
-        $templateName = 'Employees\create';
+         $templateName = 'Employees\create';
         return $this->app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
@@ -182,10 +182,13 @@ class EmployeeController
         $newEmployee->setMobileTelephone(filter_input(INPUT_POST, 'mobileTelephone'));
         $newEmployee->setLandlineTelephone(filter_input(INPUT_POST, 'landlineTelephone'));
         $newEmployee->setManagingOffice(filter_input(INPUT_POST, 'managingOffice'));
+        $newEmployee->setStartDate(filter_input(INPUT_POST, 'startDate'));
+
         if (isset($_POST['isActive']))
             $newEmployee->setIsActive(1);
         else
             $newEmployee->setIsActive(0);
+
 
         $newEmployee->getId();
         $employeeRepo= new EmployeeRepository();
@@ -193,9 +196,9 @@ class EmployeeController
         $templateName = 'Employees\success';
         if($success){
             $id = $newEmployee->getId(); // get ID of new record
-            $message = "SUCCESS - new customer with ID = $id created";
+            $message = "SUCCESS - new emloyee with ID = ".$id." created";
         } else {
-            $message = 'sorry, there was a problem creating new customer';
+            $message = 'sorry, there was a problem creating new employee';
         }
         // route user to message page with success or failure notice
 

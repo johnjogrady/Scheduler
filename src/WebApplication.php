@@ -153,8 +153,9 @@ $this->post('/rosters/update/{id}', 'roster.controller:processUpdateAction');
 $this->get('/rosters/delete/{id}', 'roster.controller:deleteAction');
 $this->get('rosters/assignemployeetoroster/{id}', 'roster.controller:assignEmployeeToRosterAction');
 $this->post('rosters/assignemployeetoroster/{id}', 'roster.controller:processAssignEmployeeToRosterAction');
-
-    }
+$this->get('serviceusers/rosters/show/rosters/delete/{id}', 'roster.controller:removeEmployeeFromRosterAction');
+$this->get('rosters/show/rosters/delete/{id}', 'roster.controller:removeEmployeeFromRosterAction');
+        }
 
 public function handleErrorsAndExceptions ()
     {

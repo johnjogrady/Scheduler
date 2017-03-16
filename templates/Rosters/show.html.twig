@@ -43,13 +43,16 @@
         </tr>
     </table>
     <table>
-    {% for assignedemployee in assignedemployees%}
+        <h2>Employees currently assigned to this roster</h2>
+        <h4>  <a href="../assignemployeetoroster/{{roster.id}}">Assign employee to this roster</a>
+        </h4>
+    {% for assignedEmployee in assignedEmployees%}
 
-        <td>
-        <td>{{assignedemployee.employeeId}}</td>
-            <a href="serviceusers/delete/{{assignedemployee.id}}">Remove</a>
+<tr>
+        <td>{{assignedEmployee.staffNumber}}
         </td>
-            </td>
+    <td>{{assignedEmployee.firstName}} {{assignedEmployee.lastName}}</td>
+    <td><a href="rosters/delete/{{assignedEmployee.id}}">Remove</a></td>
         </tr>
         {% endfor %}
     </table>
